@@ -1,4 +1,14 @@
 export interface Message {
-  content: string;
-  sender: 'user' | 'ai';
+  id: string;
+  type?: string;
+  role?: string;
+  model?: string;
+  content: {
+    type?: string
+    text: string
+  }[]
+  tokens?: {
+    input: number
+    output: number
+  };
 }

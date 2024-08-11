@@ -18,16 +18,21 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
 
     /* Paths */
     "paths": {
       "@/*": ["./src/*"]
     },
+    "baseUrl": ".",
+    "rootDir": ".",
+
+    /* Types */
     "typeRoots": ["./src/types"],
     "types": ["vite/client"] // alias tpying for vite-env.d.ts
   },
-  "include": ["src"]
+  "include": ["src/vite-env.d.ts", "src/**/*", "vite.config.ts"],
+  "exclude": ["dist", "node_modules"]
 }

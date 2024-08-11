@@ -21,6 +21,7 @@ dist-ssr
 *.sln
 *.sw?
 
-./docs
-./docs/private*
+docs
+docs/private*
 secret*
+.env
