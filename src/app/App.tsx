@@ -3,16 +3,27 @@ import ChatWindow from "@/components/ChatWindow";
 import { useChat } from "@/hooks/useChat";
 import { configureApi } from "@/services/api";
 import { apiConfigs } from "@/utils/apiConfigs";
-import { ApiConfig } from "@/types/api";
 
 function App() {
   const { messages, isLoading, sendUserMessage } = useChat();
-  const [selectedApi, setSelectedApi] = useState<string>("chatgpt");
+  const [selectedApi, setSelectedApi] = useState<string>(() => {
+    configureApi(apiConfigs[0]);
+    return apiConfigs[0].name;
+  });
 
   const handleApiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const apiName = e.target.value;
-    setSelectedApi(apiName);
-    configureApi(apiConfigs[apiName]);
+    const apiModelIdx = e.target.value;
+    console.log("apiModelIdx: ", apiModelIdx);
+
+    setSelectedApi(apiModelIdx);
+
+    const selectedModel = apiConfigs.filter(
+      (model) => model.name === apiModelIdx,
+    )[0];
+    console.log("apiConfigs: ", apiConfigs);
+    console.log("selectedModel: ", selectedModel);
+
+    configureApi(selectedModel);
   };
 
   return (
@@ -32,7 +43,7 @@ function App() {
               {Object.entries(apiConfigs).map(([key, config]) => (
                 <option
                   key={key}
-                  value={key}
+                  value={config.name}
                 >
                   {config.name}
                 </option>

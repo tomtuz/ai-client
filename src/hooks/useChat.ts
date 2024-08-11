@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { Message } from '@/types/chat';
 import { sendMessage } from '@/services/api';
+import { v4 as uuidv4 } from 'uuid'
 
 export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -10,18 +11,23 @@ export const useChat = () => {
     setMessages((prevMessages) => [...prevMessages, message]);
   }, []);
 
-  const sendUserMessage = useCallback(async (content: string) => {
-    const userMessage: Message = { content, sender: 'user' };
+  const sendUserMessage = useCallback(async (userTextInput: string) => {
+    const userMessage: Message = { id: uuidv4(), content: [{ text: userTextInput }], role: 'user' };
     addMessage(userMessage);
     setIsLoading(true);
 
     try {
-      const response = await sendMessage(content);
-      const aiMessage: Message = { content: response, sender: 'ai' };
+      const responseMessage = await sendMessage(userTextInput);
+      const { id, content, role } = responseMessage;
+      const aiMessage: Message = { id, content, role };
       addMessage(aiMessage);
     } catch (error) {
       console.error('Error sending message:', error);
-      addMessage({ content: 'Sorry, there was an error processing your message.', sender: 'ai' });
+      addMessage({
+        id: uuidv4(),
+        content: [{ text: 'Sorry, there was an error processing your message.' }],
+        role: 'ai'
+      });
     } finally {
       setIsLoading(false);
     }

@@ -27,14 +27,13 @@ function ChatWindow({ messages, onSendMessage }: ChatWindowProps) {
       <div className="flex-1 overflow-y-auto p-4">
         {messages.map((message, index) => (
           <div
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            key={index}
-            className={`mb-4 ${message.sender === "user" ? "text-right" : "text-left"}`}
+            key={message.id}
+            className={`mb-4 ${message.role === "user" ? "text-right" : "text-left"}`}
           >
             <div
-              className={`inline-block p-2 rounded-lg ${message.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+              className={`inline-block p-2 rounded-lg ${message.role === "user" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
             >
-              {message.content}
+              {message.content.map((item) => item.text).join("\n")}
             </div>
           </div>
         ))}

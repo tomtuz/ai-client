@@ -1,29 +1,35 @@
-import { ApiConfig } from '@/types/api';
+import { APIConfig } from '@/api/types';
+import { Message } from '@/types/chat';
 
-let currentApi: ApiConfig | null = null;
+let currentApi: APIConfig | null = null;
 
-export const configureApi = (config: ApiConfig) => {
+export const configureApi = (config: APIConfig) => {
   currentApi = config;
 };
 
-export const sendMessage = async (message: string): Promise<string> => {
+export async function sendMessage(message: string): Promise<Message> {
   if (!currentApi) {
     throw new Error('API not configured');
   }
 
-  const response = await fetch(currentApi.endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...currentApi.headers,
-    },
-    body: JSON.stringify({ message }),
-  });
+  const request = currentApi.prepareRequest(message);
 
-  if (!response.ok) {
-    throw new Error('Failed to send message');
+  try {
+    const response = await fetch(request.url, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return currentApi.parseResponse(data);
+  } catch (error) {
+    console.error(`Error sending message to ${currentApi.name}:`, error);
+    throw error;
   }
+}
 
-  const data = await response.json();
-  return data.response;
-};
