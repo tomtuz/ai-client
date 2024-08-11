@@ -1,0 +1,14 @@
+{
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": [
+    "source.addMissingImports",
+    "source.fixAll.eslint"
+  ],
+
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
