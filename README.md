@@ -1,6 +1,16 @@
-Chat client
+## AI chat client
 
+**Docs:**
+
+- [Documentation](./docs/docs.md)
+
+**Stack:**
 ```
-pnpm i
-pnpm dev
+Front: React 18 (TS, Tailwind) + SWC
+Back: .NET (upcoming)
+```
+
+**Quickstart:**
+```
+pnpm i && pnpm dev
 ```

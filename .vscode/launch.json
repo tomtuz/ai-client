@@ -2,19 +2,76 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Local",
-      "type": "node-terminal",
+      "name": "Chrome (Run)",
       "request": "launch",
-      "command": "pnpm run debug"
+      "type": "chrome",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "presentation": {
+        "hidden": true,
+        "group": "ClientApp",
+        "order": 1
+      },
+      "preLaunchTask": "Vite Server (Run)"
     },
     {
-      "name": "Custom command",
+      "name": "CustomCommand",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "pnpm",
-      "args": ["run", "start"],
+      "args": ["pnpm", "${input:userSelect}", "${input:userInput}"],
+      "smartStep": true,
+      "trace": true,
       "cwd": "${workspaceFolder}",
+      "presentation": {
+        "hidden": false,
+        "group": "CustomRun",
+        "order": 1
+      },
       "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "userInput",
+      "description": "Supply custom CLI option value",
+      "type": "promptString"
+    },
+    {
+      "id": "userSelect",
+      "description": "Pick option to run",
+      "type": "pickString",
+      "options": [
+        {
+          "value": ""
+        },
+        {
+          "value": "run dev"
+        },
+        {
+          "value": "run preview"
+        },
+        {
+          "value": "run typecheck"
+        }
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "AI_ClientApp",
+      "presentation": {
+        "hidden": false,
+        "group": "ClientApp",
+        "order": 0
+      },
+      "stopAll": true,
+      "configurations": ["Chrome (Run)"],
+      "preLaunchTask": "Vite Server (Run)"
     }
   ]
 }
