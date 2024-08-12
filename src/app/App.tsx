@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import ChatWindow from "@/components/ChatWindow";
 import { useChat } from "@/hooks/useChat";
 import { configureApi } from "@/services/api";
@@ -10,6 +10,11 @@ function App() {
     configureApi(apiConfigs[0]);
     return apiConfigs[0].name;
   });
+
+  const handlePromptTest = () => {
+    console.log("sending test prompt");
+    sendUserMessage("say just the word 'apple'");
+  };
 
   const handleApiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const apiModelIdx = e.target.value;
@@ -49,6 +54,14 @@ function App() {
                 </option>
               ))}
             </select>
+            <div>
+              <button
+                type="button"
+                onClick={handlePromptTest}
+              >
+                Test prompt
+              </button>
+            </div>
           </div>
           <div className="flex-1">
             <ChatWindow
