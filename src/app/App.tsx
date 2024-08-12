@@ -1,8 +1,10 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import ChatWindow from "@/components/ChatWindow";
 import { useChat } from "@/hooks/useChat";
 import { configureApi } from "@/services/api";
 import { apiConfigs } from "@/utils/apiConfigs";
+
+import { Button } from "@cn/ui";
 
 function App() {
   const { messages, isLoading, sendUserMessage } = useChat();
@@ -55,12 +57,12 @@ function App() {
               ))}
             </select>
             <div>
-              <button
+              <Button
                 type="button"
                 onClick={handlePromptTest}
               >
                 Test prompt
-              </button>
+              </Button>
             </div>
           </div>
           <div className="flex-1">
