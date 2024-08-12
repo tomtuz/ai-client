@@ -8,8 +8,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@cn/*": ["./src/components/cn/*"],
       "@twc/*": ["./src/components/tailwind/*"],
-      "@components/*": ["./src/components/default/*"]
+      "@components/*": ["./src/components/*"]
     }
   }
 }
