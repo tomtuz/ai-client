@@ -11,7 +11,7 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@/components/cn/cmp",
+    "components": "@/components/cn",
     "utils": "@/utils/tw_utils",
     "ui": "@/components/cn/ui"
   }
