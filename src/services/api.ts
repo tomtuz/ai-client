@@ -1,5 +1,5 @@
 import { APIConfig } from '@/api/types';
-import { Message } from '@/types/chat';
+import { MessageContents } from '@/types/chat';
 
 let currentApi: APIConfig | null = null;
 
@@ -7,7 +7,7 @@ export const configureApi = (config: APIConfig) => {
   currentApi = config;
 };
 
-export async function sendMessage(message: string): Promise<Message> {
+export async function sendMessage(message: string): Promise<MessageContents> {
   if (!currentApi) {
     throw new Error('API not configured');
   }

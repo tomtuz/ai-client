@@ -1,6 +1,7 @@
 import { APIConfig } from "../types";
 
-export const customModelConfig: APIConfig = {
+export const CustomModelConfig: APIConfig = {
+  id: "custom-model",
   name: "Custom model",
   endpoint: "https://test.test.dev/v1/api",
   prepareRequest: (message: string) => ({

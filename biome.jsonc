@@ -28,6 +28,9 @@
       },
       "style": {
         "useImportType": "off"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off"
       }
     },
     "ignore": []
