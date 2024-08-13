@@ -1,4 +1,4 @@
-import { Message } from '@/types/chat';
+import { MessageContents } from '@/types/chat';
 import { APIConfig } from '../types';
 
 const {
@@ -7,7 +7,8 @@ const {
 } = import.meta.env
 
 // Google Vertex AI endpoint used with a custom reverse proxy
-export const vertexProxyConfig: APIConfig = {
+export const VertexProxyConfig: APIConfig = {
+  id: "vertex-anthropic-proxy",
   name: "Anthropic (vertex r-proxy)",
   endpoint: EXPOSE_ANTHROPIC_PROXY_URL || "",
   prepareRequest: (message: string) => ({
@@ -29,7 +30,7 @@ export const vertexProxyConfig: APIConfig = {
       max_tokens: 100
     })
   }),
-  parseResponse: (response): Message => {
+  parseResponse: (response): MessageContents => {
     console.log("responseData: ", response)
     const parsedData = {
       id: response.id,

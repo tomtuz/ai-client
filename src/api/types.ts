@@ -1,6 +1,7 @@
-import { Message } from "@/types/chat";
+import { MessageContents } from "@/types/chat";
 
 export interface APIConfig {
+  id: string,
   name: string;
   endpoint: string;
   prepareRequest: (message: string) => {
@@ -9,6 +10,6 @@ export interface APIConfig {
     headers: Record<string, string>;
     body: any;
   };
-  parseResponse: (response: any) => Message;
+  parseResponse: (response: any) => MessageContents;
 }
 

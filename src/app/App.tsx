@@ -1,71 +1,26 @@
-import React, { useState } from "react";
 import ChatWindow from "@/components/ChatWindow";
 import { useChat } from "@/hooks/useChat";
-import { configureApi } from "@/services/api";
-import { apiConfigs } from "@/utils/apiConfigs";
-
-import { Button } from "@cn/ui";
+import Header from "@/components/Header";
+import { ChatControls } from "@/components/devtools/ChatControls";
+import { ModelSelector } from "@/components/ModelSelector";
 
 function App() {
-  const { messages, isLoading, sendUserMessage } = useChat();
-  const [selectedApi, setSelectedApi] = useState<string>(() => {
-    configureApi(apiConfigs[0]);
-    return apiConfigs[0].name;
-  });
-
-  const handlePromptTest = () => {
-    console.log("sending test prompt");
-    sendUserMessage("say just the word 'apple'");
-  };
-
-  const handleApiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const apiModelIdx = e.target.value;
-    console.log("apiModelIdx: ", apiModelIdx);
-
-    setSelectedApi(apiModelIdx);
-
-    const selectedModel = apiConfigs.filter(
-      (model) => model.name === apiModelIdx,
-    )[0];
-    console.log("apiConfigs: ", apiConfigs);
-    console.log("selectedModel: ", selectedModel);
-
-    configureApi(selectedModel);
-  };
+  const { messages, isLoading, sendUserMessage, addTestMessage } = useChat();
 
   return (
-    <div className="flex flex-col h-screen">
-      <header className="bg-blue-500 text-white p-4">
-        <h1 className="text-2xl">Multi-API Chat Application</h1>
-      </header>
+    <div className="dark flex flex-col h-screen">
+      <Header />
       <div className="flex-1 overflow-hidden">
         <div className="flex h-full">
-          <div className="w-64 bg-gray-100 p-4">
+          <div className="w-64 p-4">
             <h2 className="text-lg font-semibold mb-4">Select API</h2>
-            <select
-              value={selectedApi}
-              onChange={handleApiChange}
-              className="w-full p-2 border rounded"
-            >
-              {Object.entries(apiConfigs).map(([key, config]) => (
-                <option
-                  key={key}
-                  value={config.name}
-                >
-                  {config.name}
-                </option>
-              ))}
-            </select>
-            <div>
-              <Button
-                type="button"
-                onClick={handlePromptTest}
-              >
-                Test prompt
-              </Button>
-            </div>
+            <ModelSelector />
+            <ChatControls
+              onSendMessage={sendUserMessage}
+              onAddTestMessage={addTestMessage}
+            />
           </div>
-          <div className="flex-1">
+          <div className="bg-secondary flex-1">
             <ChatWindow
               messages={messages}
               onSendMessage={sendUserMessage}
