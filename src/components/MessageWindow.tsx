@@ -1,6 +1,5 @@
 import { MessageContents } from "@/types/chat";
 import { Message } from "./Message";
-import { Message2 } from "./Message2";
 
 interface MessageProps {
   messages: MessageContents[];

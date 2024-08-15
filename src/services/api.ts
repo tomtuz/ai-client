@@ -1,18 +1,24 @@
 import { APIConfig } from '@/api/types';
 import { MessageContents } from '@/types/chat';
+import { OpenRouterModelId } from '@/constants';
 
-let currentApi: APIConfig | null = null;
+let _api_config: APIConfig | null = null;
+let _openrouter_model: OpenRouterModelId | null = null;
 
-export const configureApi = (config: APIConfig) => {
-  currentApi = config;
+export const setApiConfig = (config: APIConfig) => {
+  _api_config = config;
+};
+
+export const setOpenRouterModel = (model_id: OpenRouterModelId) => {
+  _openrouter_model = model_id;
 };
 
 export async function sendMessage(message: string): Promise<MessageContents> {
-  if (!currentApi) {
+  if (!_api_config) {
     throw new Error('API not configured');
   }
 
-  const request = currentApi.prepareRequest(message);
+  const request = _api_config.prepareRequest(message);
 
   try {
     const response = await fetch(request.url, {
@@ -26,9 +32,9 @@ export async function sendMessage(message: string): Promise<MessageContents> {
     }
 
     const data = await response.json();
-    return currentApi.parseResponse(data);
+    return _api_config.parseResponse(data);
   } catch (error) {
-    console.error(`Error sending message to ${currentApi.name}:`, error);
+    console.error(`Error sending message to ${_api_config.name}:`, error);
     throw error;
   }
 }

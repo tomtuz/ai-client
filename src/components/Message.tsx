@@ -20,18 +20,23 @@ export function Message({ message }: MessageProps) {
   return (
     <div
       key={message.id}
-      className={"relative w-full mb-4"}
+      className={"border rounded-t-lg relative w-full mb-4"}
     >
-      <span
-        className={cn(
-          "absolute right-1 top-1 opacity-20 hover:opacity-100 transition-opacity duration-300",
-        )}
-      >
-        <Button onClick={() => handleCopyMessage()}>copy</Button>
-      </span>
       <div
         className={cn(
-          "w-full inline-block p-2 rounded-lg bg-background text-foreground",
+          "rounded-t-lg bg-chat-header text-card-foreground shadow-sm flex justify-end p-2.5",
+        )}
+      >
+        <Button
+          className="flex h-auto py-1 px-2 hover:underline"
+          onClick={() => handleCopyMessage()}
+        >
+          copy
+        </Button>
+      </div>
+      <div
+        className={cn(
+          "prose-pre:m-0 prose prose-a:text-blue-600 max-w-none hover:prose-code:text-blue-500 w-full inline-block p-2.5 rounded-b-lg bg-chat-content text-foreground",
         )}
       >
         {message.role !== "ai" ? (

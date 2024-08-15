@@ -22,6 +22,7 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "button-accent": "hsl(var(--chart-1))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -29,6 +30,14 @@ module.exports = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        "chat-header": {
+          DEFAULT: "hsl(var(--chat-header))",
+          foreground: "hsl(var(--foreground))",
+        },
+        "chat-content": {
+          DEFAULT: "hsl(var(--chat-content))",
+          foreground: "hsl(var(--foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

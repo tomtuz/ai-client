@@ -1,10 +1,4 @@
 import { useState, useCallback } from "react";
-import { setApiConfig } from "@/services/api";
-import {
-  ModelConfigs,
-  DEFAULT_MODEL_CONFIG,
-  getModelConfigById,
-} from "@/utils/apiConfigs";
 import {
   Select,
   SelectTrigger,
@@ -17,32 +11,31 @@ import {
 
 interface ModelSelectorProps {
   title?: string;
+  optionArr: string[];
+  updateHandler: (selectedOption: string) => void;
 }
 
-export function ModelSelector({
-  title = "Select AI Model",
+export function GenericSelector({
+  title,
+  optionArr,
+  updateHandler,
 }: Readonly<ModelSelectorProps>) {
-  const [selectedApi, setSelectedApi] = useState<string>(() => {
-    setApiConfig(DEFAULT_MODEL_CONFIG);
-    return DEFAULT_MODEL_CONFIG.id;
-  });
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
-  const handleApiChange = useCallback((configId: string) => {
-    const selectedModel = getModelConfigById(configId);
-    if (selectedModel) {
-      setSelectedApi(selectedModel.id);
-      setApiConfig(selectedModel);
-    } else {
-      console.error(`No configuration found for id: ${configId}`);
-    }
-  }, []);
+  const handleApiChange = useCallback(
+    (selectedOption: string) => {
+      setSelectedOption(selectedOption);
+      updateHandler(selectedOption);
+    },
+    [updateHandler],
+  );
 
   return (
     <div className="my-component">
       <h2>{title}</h2>
       <div className="content">
         <Select
-          value={selectedApi}
+          value={optionArr[0]}
           onValueChange={handleApiChange}
         >
           <SelectTrigger className="w-[180px]">
@@ -51,12 +44,12 @@ export function ModelSelector({
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Models</SelectLabel>
-              {ModelConfigs.map((model) => (
+              {optionArr.map((option) => (
                 <SelectItem
-                  key={model.id}
-                  value={model.id}
+                  key={option}
+                  value={option}
                 >
-                  {model.name}
+                  {option}
                 </SelectItem>
               ))}
             </SelectGroup>
