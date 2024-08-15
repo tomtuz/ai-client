@@ -5,3 +5,4 @@ export interface ShikiCodeProps {
   language?: string
   code: string
 }
+

@@ -12,3 +12,7 @@ export interface MessageContents {
     output: number
   };
 }
+
+export interface Item {
+  id: string;
+}

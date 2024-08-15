@@ -5,7 +5,6 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarSeparator,
-  Button,
 } from "@cn/ui";
 
 export function NavMenu() {
@@ -14,19 +13,11 @@ export function NavMenu() {
       <MenubarMenu>
         <MenubarTrigger>Settings</MenubarTrigger>
         <MenubarContent>
-          <Button className="hover:underline">
-            <MenubarItem>Setting1</MenubarItem>
-          </Button>
-
+          <MenubarItem>Setting1</MenubarItem>
           <MenubarSeparator />
-          <Button className="hover:underline">
-            <MenubarItem>Setting2</MenubarItem>
-          </Button>
-
+          <MenubarItem>Setting2</MenubarItem>
           <MenubarSeparator />
-          <Button className="hover:underline">
-            <MenubarItem>Setting3</MenubarItem>
-          </Button>
+          <MenubarItem>Setting3</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
