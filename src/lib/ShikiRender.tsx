@@ -14,24 +14,28 @@ export function ShikiRender({ code, language }: ShikiCodeProps) {
 
   const [renderedCode, setRenderedCode] = useState<string>("");
 
-  useEffect(() => {
-    const renderCode = async () => {
-      if (!code) return;
+  // TODO: fix error (useEffect)
+  // TypeError: context.getSource is not a function
+  // Rule: "react-hooks/exhaustive-deps"
 
-      if (!Object.keys(bundledLanguages).includes(language || "")) {
-        language = "text";
-      }
+  // useEffect(() => {
+  //   const renderCode = async () => {
+  //     if (!code) return;
 
-      const htmlData = await highlighter.codeToHtml(code, {
-        lang: language || "typescript",
-        theme: "poimandres",
-      });
+  //     if (!Object.keys(bundledLanguages).includes(language || "")) {
+  //       language = "text";
+  //     }
 
-      setRenderedCode(htmlData);
-    };
+  //     const htmlData = await highlighter.codeToHtml(code, {
+  //       lang: language || "typescript",
+  //       theme: "poimandres",
+  //     });
 
-    renderCode();
-  }, [code, language]);
+  //     setRenderedCode(htmlData);
+  //   };
+
+  //   renderCode();
+  // }, [code, language]);
 
   if (!code) {
     return null;

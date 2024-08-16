@@ -25,3 +25,6 @@ docs
 docs/private*
 secret*
 .env
+
+# old files I want to keep locally
+old

@@ -18,15 +18,15 @@ function App() {
   return (
     <div
       className={cn(
-        "bg-background text-foreground flex flex-col h-screen",
+        "bg-background text-foreground flex flex-col h-screen ",
         theme,
       )}
     >
       <Header />
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden ">
         <div className="flex h-full">
           <div className="w-64 p-4">
-            <h2 className="text-lg font-semibold mb-4">Select API</h2>
+            <h2 className="mb-4 text-lg font-semibold">Select API</h2>
             <ModelSelector />
             <GenericSelector
               title="OpenRouterM"
@@ -36,7 +36,7 @@ function App() {
 
             <DropdownProvider items={items}>
               <div className="p-4">
-                <h1 className="text-2xl font-bold mb-4">Dropdown Selection</h1>
+                <h1 className="mb-4 text-2xl font-bold">Dropdown Selection</h1>
                 <DropdownContainer />
               </div>
             </DropdownProvider>
@@ -53,8 +53,8 @@ function App() {
         </div>
       </div>
       {isLoading && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-lg">Loading...</div>
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="p-4 bg-white rounded-lg">Loading...</div>
         </div>
       )}
     </div>
