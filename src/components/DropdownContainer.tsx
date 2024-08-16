@@ -1,5 +1,5 @@
 import React from "react";
-import { useDropdown } from "@/context/DropdownContext";
+import { useDropdown } from "@/hooks/useDropdown.ts";
 import { GenericDropdown } from "./GenericDropdown.tsx";
 
 export const DropdownContainer: React.FC = () => {

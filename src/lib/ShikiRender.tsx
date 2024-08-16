@@ -41,8 +41,5 @@ export function ShikiRender({ code, language }: ShikiCodeProps) {
     return null;
   }
 
-  return (
-    /* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */
-    <div dangerouslySetInnerHTML={{ __html: renderedCode }} />
-  );
+  return <div dangerouslySetInnerHTML={{ __html: renderedCode }} />;
 }

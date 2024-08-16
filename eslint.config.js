@@ -23,7 +23,7 @@ import ReactRefreshPlugin from "eslint-plugin-react-refresh";
 
 // Debugging 'rules':
 // 1. unwrap relevant configs and define them epxlicitly (old/* examples)
-// 2. check if 'saveConfigData' logs pass correct values
+// 2. check if 'saveConfigData' logs pass correct values (jsonviewer.stack.hu)
 // 3. use ESLint Inspect
 // saveConfigData(PLUGIN_MODULES);
 
@@ -98,6 +98,7 @@ export default [
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "react-refresh/only-export-components": "warn",
+      "@eslint-react/dom/no-dangerously-set-innerhtml": "off",
     },
   },
 

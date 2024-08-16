@@ -7,7 +7,7 @@ import { GenericSelector } from "@/components/shared/GenericSelector";
 import { Item } from "@/types/chat";
 import { DropdownContainer } from "@/components/DropdownContainer";
 import { DropdownProvider } from "@/context/DropdownContext";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/utils/tw_utils";
 
 function App() {
