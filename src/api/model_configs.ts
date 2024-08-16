@@ -1,9 +1,9 @@
 import { APIConfig } from './types';
-import { vertexProxyConfig } from './models/vertex_proxy';
-import { customModelConfig } from './models/_custom_example';
+import { VertexProxyConfig } from './models/vertex_proxy';
+import { CustomModelConfig } from './models/_custom_example';
 
 export const apiConfigs: APIConfig[] = [
-  vertexProxyConfig,
-  customModelConfig
+  VertexProxyConfig,
+  CustomModelConfig
   // Add other API configurations here
 ];
