@@ -1,6 +1,7 @@
 import React from "react";
 import { useDropdown } from "@/hooks/useDropdown.ts";
 import { GenericDropdown } from "./GenericDropdown.tsx";
+import { openRouterModels } from "@/constants/index.ts";
 
 export const DropdownContainer: React.FC = () => {
   const {
@@ -10,7 +11,8 @@ export const DropdownContainer: React.FC = () => {
     setSelectedValue1,
     setSelectedValue2,
   } = useDropdown();
-  const options = items.map((item) => item.id);
+  const options = items.map((item) => item);
+  const openRouterOptions = Object.keys(openRouterModels);
 
   return (
     <div className="space-y-4">
@@ -20,12 +22,14 @@ export const DropdownContainer: React.FC = () => {
         onChange={setSelectedValue1}
         placeholder="Select Value 1"
       />
-      <GenericDropdown
-        options={options}
-        value={selectedValue2}
-        onChange={setSelectedValue2}
-        placeholder="Select Value 2"
-      />
+      {selectedValue1 === "open-router" && (
+        <GenericDropdown
+          options={openRouterOptions}
+          value={selectedValue2}
+          onChange={setSelectedValue2}
+          placeholder="Select Value 2"
+        />
+      )}
     </div>
   );
 };

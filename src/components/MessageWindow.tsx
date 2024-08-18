@@ -8,7 +8,7 @@ interface MessageProps {
 export function MessageList({ messages }: MessageProps) {
   return (
     <div>
-      {messages.map((message, index) => (
+      {messages?.map((message, index) => (
         <Message
           key={message.id}
           message={message}

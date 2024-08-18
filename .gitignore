@@ -28,3 +28,10 @@ secret*
 
 # old files I want to keep locally
 old
+
+# no .db files and private scripts
+db/*.db
+db/private_*
+
+# in-dev vector db
+chroma

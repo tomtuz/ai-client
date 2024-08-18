@@ -38,7 +38,7 @@ function ChatWindow({ messages, onSendMessage }: ChatWindowProps) {
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex prose prose-a:text-blue-600 max-w-none hover:prose-code:text-blue-500 min-h-0 border p-2 w-full resize-none"
+            className="flex prose prose-a:text-blue-600 max-w-none text-foreground hover:prose-code:text-blue-500 min-h-0 border p-2 w-full resize-none"
             placeholder="Type a message..."
           />
           <button

@@ -1,11 +1,13 @@
 import { APIConfig } from '@/api/types';
 import { MessageContents } from '@/types/chat';
 import { OpenRouterModelId } from '@/constants';
+import { logger } from '@/utils/logger';
 
 let _api_config: APIConfig | null = null;
 let _openrouter_model: OpenRouterModelId | null = null;
 
 export const setApiConfig = (config: APIConfig) => {
+  logger.info(`setting config model: ${JSON.stringify(config, null, 2)}`);
   _api_config = config;
 };
 

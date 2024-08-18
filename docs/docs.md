@@ -1,5 +1,21 @@
 # Documentation file
 
+# Configuration Database setup
+This is only used for application configurations.
+```sh
+pnpm run db:setup
+```
+
+# Embedding Database (SOON)
+Advantages:
+- Stores codebase context in optimized vector storage.
+- Allows requesting codebase context relevant to the user prompts.
+- AI agents don't need to re-digest the entire codebase.
+
+Requirements:
+- Vector DB (Chroma, Qdrant, Pinecone, LanceDB)
+- Embedding & reranking model (jina, MiniLM-L6-v2, APIs)
+
 ## Debugging
 Debug configurations:
 1. 'AI_ClientApp' - Primary debug configuration. Should work out of the box.
@@ -12,4 +28,5 @@ To run SPAs you have to:
 3. Attach the debugger to Vite server*
 
 *Attaching debugger for HMR server which reloads code is tricky, consider using in-code 'debugger' with native browser debugger to avoid tricky situations.
+
 
