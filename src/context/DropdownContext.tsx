@@ -1,8 +1,7 @@
 import React, { createContext, useState, ReactNode, useMemo } from "react";
-import { Item } from "@/types/chat";
 
 interface DropdownContextType {
-  items: Item[];
+  items: string[];
   selectedValue1: string;
   selectedValue2: string;
   setSelectedValue1: (value: string) => void;
@@ -15,7 +14,7 @@ export const DropdownContext = createContext<DropdownContextType | undefined>(
 
 export const DropdownProvider: React.FC<{
   children: ReactNode;
-  items: Item[];
+  items: string[];
 }> = ({ children, items }) => {
   const [selectedValue1, setSelectedValue1] = useState<string>("");
   const [selectedValue2, setSelectedValue2] = useState<string>("");

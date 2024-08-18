@@ -3,17 +3,26 @@ import { useChat } from "@/hooks/useChat";
 import Header from "@/components/Header";
 import { ChatControls } from "@/components/devtools/ChatControls";
 import { ModelSelector } from "@/components/ModelSelector";
-import { GenericSelector } from "@/components/shared/GenericSelector";
-import { Item } from "@/types/chat";
 import { DropdownContainer } from "@/components/DropdownContainer";
 import { DropdownProvider } from "@/context/DropdownContext";
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/utils/tw_utils";
+import { logger } from "@/utils/logger";
+import { apiConfigs } from "@/api/model_configs";
 
 function App() {
+  logger.info("hello world!");
   const { theme } = useTheme();
-  const { messages, isLoading, sendUserMessage, addTestMessage } = useChat();
-  const items: Item[] = [{ id: "item1" }, { id: "item2" }, { id: "item3" }];
+  const {
+    messages,
+    isLoading,
+    sendUserMessage,
+    addTestMessage,
+    processResponseMessage,
+  } = useChat();
+  const model_configs: string[] = [...apiConfigs.map((config) => config.id)];
+
+  logger.info(`model_configs: ${model_configs}`);
 
   return (
     <div
@@ -28,13 +37,8 @@ function App() {
           <div className="w-64 p-4">
             <h2 className="mb-4 text-lg font-semibold">Select API</h2>
             <ModelSelector />
-            <GenericSelector
-              title="OpenRouterM"
-              optionArr={["Yes", "No"]}
-              updateHandler={() => {}}
-            />
 
-            <DropdownProvider items={items}>
+            <DropdownProvider items={model_configs}>
               <div className="p-4">
                 <h1 className="mb-4 text-2xl font-bold">Dropdown Selection</h1>
                 <DropdownContainer />
@@ -44,6 +48,7 @@ function App() {
             <ChatControls
               onSendMessage={sendUserMessage}
               onAddTestMessage={addTestMessage}
+              onTestResponse={processResponseMessage}
             />
           </div>
           <ChatWindow

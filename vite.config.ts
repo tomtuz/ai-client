@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from "@vitejs/plugin-react-swc";
-import path from 'node:path';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
   build: {
@@ -9,10 +9,10 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      '@cn': path.resolve(__dirname, "./src/components/cn"),
-      '@twc': path.resolve(__dirname, './src/components/tailwind'),
-      '@components': path.resolve(__dirname, './src/components'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@cn': fileURLToPath(new URL('./src/components/cn', import.meta.url)),
+      '@twc': fileURLToPath(new URL('./src/components/tailwind', import.meta.url)),
+      '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
     },
   },
   envPrefix: "EXPOSE_"

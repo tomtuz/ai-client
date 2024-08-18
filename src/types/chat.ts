@@ -13,6 +13,6 @@ export interface MessageContents {
   };
 }
 
-export interface Item {
+export interface SelectId {
   id: string;
 }

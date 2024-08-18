@@ -2,14 +2,17 @@ import { useState, useCallback } from 'react';
 import { MessageContents } from '@/types/chat';
 import { sendMessage } from '@/services/api';
 import { v4 as uuidv4 } from 'uuid'
+import { logger } from '@/utils/logger';
 
 export const useChat = () => {
   const [messages, setMessages] = useState<MessageContents[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const addMessage = useCallback((message: MessageContents) => {
+    logger.info(`addingMessage: ${JSON.stringify(message)}`)
     setMessages((prevMessages) => [...prevMessages, message]);
-  }, []);
+    console.log("messages: ", messages)
+  }, [messages]);
 
   const addTestMessage = useCallback(async (textMsg: string, role: string) => {
     const userMessage: MessageContents = { id: uuidv4(), content: [{ text: textMsg }], role };
@@ -24,9 +27,8 @@ export const useChat = () => {
 
     try {
       const responseMessage = await sendMessage(userTextInput);
-      const { id, content, role } = responseMessage;
-      const aiMessage: MessageContents = { id, content, role };
-      addMessage(aiMessage);
+      logger.info(`responseMessage: ${responseMessage}`)
+      processResponseMessage(responseMessage)
     } catch (error) {
       console.error('Error sending message:', error);
       addMessage({
@@ -39,5 +41,15 @@ export const useChat = () => {
     }
   }, [addMessage]);
 
-  return { messages, isLoading, sendUserMessage, addTestMessage };
+  function processResponseMessage(response: MessageContents) {
+    const { id, content, role } = response;
+    logger.info(`id: ${JSON.stringify(id)}, content: ${JSON.stringify(content)}, role: ${JSON.stringify(role)}`)
+
+    const aiMessage: MessageContents = { id, content, role };
+    logger.info(`aiMessage: ${JSON.stringify(aiMessage, null, 2)}`)
+
+    addMessage(aiMessage);
+  }
+
+  return { messages, isLoading, sendUserMessage, addTestMessage, processResponseMessage };
 };

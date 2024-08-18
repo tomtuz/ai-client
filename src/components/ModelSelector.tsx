@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
 import { setApiConfig } from "@/services/api";
 import {
-  ModelConfigs,
+  apiConfigs,
   DEFAULT_MODEL_CONFIG,
   getModelConfigById,
-} from "@/utils/apiConfigs";
+} from "@/api/model_configs";
+
 import {
   Select,
   SelectTrigger,
@@ -51,7 +52,7 @@ export function ModelSelector({
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Models</SelectLabel>
-              {ModelConfigs.map((model) => (
+              {apiConfigs.map((model) => (
                 <SelectItem
                   key={model.id}
                   value={model.id}
