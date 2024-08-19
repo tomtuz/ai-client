@@ -114,6 +114,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.41)
+      debug:
+        specifier: ^4.3.6
+        version: 4.3.6
       eslint:
         specifier: ^9.9.0
         version: 9.9.0(jiti@1.21.6)
@@ -129,9 +132,15 @@ importers:
       globals:
         specifier: ^15.9.0
         version: 15.9.0
+      picocolors:
+        specifier: ^1.0.1
+        version: 1.0.1
       postcss:
         specifier: ^8.4.41
         version: 8.4.41
+      rotating-file-stream:
+        specifier: ^3.2.3
+        version: 3.2.3
       shiki:
         specifier: ^1.12.1
         version: 1.12.1
@@ -2763,6 +2772,10 @@ packages:
     resolution: {integrity: sha512-6rbWBChcnSGzIlXeIdNIZTopKYad8ZG8ajhl78lGRLsI2rX8IkaotQhVas2Ma+GPxJav19wrSzvRvuiv0YKzWw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
+
+  rotating-file-stream@3.2.3:
+    resolution: {integrity: sha512-cfmm3tqdnbuYw2FBmRTPBDaohYEbMJ3211T35o6eZdr4d7v69+ZeK1Av84Br7FLj2dlzyeZSbN6qTuXXE6dawQ==}
+    engines: {node: '>=14.0'}
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -6050,6 +6063,8 @@ snapshots:
       '@rollup/rollup-win32-ia32-msvc': 4.20.0
       '@rollup/rollup-win32-x64-msvc': 4.20.0
       fsevents: 2.3.3
+
+  rotating-file-stream@3.2.3: {}
 
   run-parallel@1.2.0:
     dependencies:
