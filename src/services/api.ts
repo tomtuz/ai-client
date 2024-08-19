@@ -40,4 +40,3 @@ export async function sendMessage(message: string): Promise<MessageContents> {
     throw error;
   }
 }
-
