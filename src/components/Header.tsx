@@ -1,20 +1,20 @@
-import { APIConfig } from "@/api/types";
+import { ModelConfig } from "@/api/types";
 import React from "react";
-import { APIConfigDialog } from "./APIConfigDialog";
-import { Button } from "./cn/ui/button";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { NavMenu } from "./NavMenu";
+import { Button } from "./cn/ui";
+import { ModelDialog } from "./model_configuration/ModelDialog";
 
 interface HeaderProps {
-  onSave: (config: APIConfig) => void;
+  onSaveConfig: (config: ModelConfig) => void;
 }
 
-export function Header({ onSave }: HeaderProps) {
+export function Header({ onSaveConfig }: HeaderProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   return (
     <>
-      <nav className="flex items-center justify-center w-full gap-4 py-2 border-b-2">
+      <nav className="flex w-full items-center justify-center gap-4 border-b-2 py-2">
         <NavMenu />
         <DarkModeToggle />
         <div className="flex gap-4">
@@ -23,15 +23,15 @@ export function Header({ onSave }: HeaderProps) {
             className="hover:underline"
             onClick={() => setIsDialogOpen(true)}
           >
-            Option1
+            Models
           </Button>
           <Button className="hover:underline">Option2</Button>
         </div>
       </nav>
-      <APIConfigDialog
+      <ModelDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        onSave={() => onSave}
+        onSave={onSaveConfig}
       />
     </>
   );

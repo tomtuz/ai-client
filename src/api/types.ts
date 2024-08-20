@@ -15,9 +15,12 @@ export interface APIConfig {
   headers?: string[];
 }
 
-type headerOption = {
-  [key: string]: string | number;
+// OR Record<string, string>;
+type headerOptions = {
+  [key: string]: string;
 };
+
+type headerOption2 = Record<string, string>;
 
 export interface ModelConfig {
   modelId?: string;
@@ -25,9 +28,9 @@ export interface ModelConfig {
   modelName?: string;
   url: string;
   apiToken?: string;
-  apiProvider?: "OpenAPI" | "Native" | "Custom";
+  apiProvider?: "OpenAI" | "Native" | "Custom";
   // custom headers
-  headers?: Array<headerOption>;
+  headers?: headerOptions;
   body?: string[];
   // prompt sent on every message
   systemMessage?: string;

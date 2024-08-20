@@ -12,7 +12,7 @@ export function ConfigList({
   onConfigSelect,
 }: ConfigListProps) {
   return (
-    <div className="max-h-60 overflow-y-auto">
+    <div className="max-h-[640px] overflow-y-auto">
       {filteredConfigs.map((config) => (
         <div
           key={config.modelId}

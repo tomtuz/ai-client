@@ -8,7 +8,6 @@
     // "source.fixAll.eslint"
   ],
 
-  "onWillSaveTextDocument": "",
   "files.associations": {
     "*.css": "tailwindcss"
   },
@@ -44,15 +43,6 @@
   ],
 
   "typescript.tsdk": "node_modules/typescript/lib",
-  // By default it will use `dprint` found on the path,
-  // but use this when you want to specify a custom location.
-  // Include the executable name (ex. on windows "C:\\some-dir\\dprint.exe")
-  // "dprint.path": "C:/Users/tto/.dprint/bin/dprint.exe",
-  "dprint.path": "C:\\Users\\tto\\.dprint\\bin\\dprint.exe",
-  // Change this to `true` to get verbose logging
-  "dprint.verbose": false,
-  // Change this to `true` to enable the experimental lsp (requires dprint 0.45+)
-  "dprint.experimentalLsp": false,
 
   "emeraldwalk.runonsave": {
     "commands": [
