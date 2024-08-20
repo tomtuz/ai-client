@@ -1,17 +1,15 @@
+import { APIConfig } from "@/api/types";
 import ChatWindow from "@/components/ChatWindow";
-import { useChat } from "@/hooks/useChat";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 import { ChatControls } from "@/components/devtools/ChatControls";
-import { ModelSelector } from "@/components/ModelSelector";
-import { DropdownContainer } from "@/components/DropdownContainer";
-import { DropdownProvider } from "@/context/DropdownContext";
-import { useTheme } from "@/hooks/useTheme";
-import { cn } from "@/utils/tw_utils";
 import { logger } from "@/utils/logger";
-import { apiConfigs } from "@/api/model_configs";
+import { cn } from "@/utils/tw_utils";
+
+// hooks
+import { useChat } from "@/hooks/useChat";
+import { useTheme } from "@/hooks/useTheme";
 
 function App() {
-  logger.info("hello world!");
   const { theme } = useTheme();
   const {
     messages,
@@ -20,30 +18,32 @@ function App() {
     addTestMessage,
     processResponseMessage,
   } = useChat();
-  const model_configs: string[] = [...apiConfigs.map((config) => config.id)];
 
-  logger.info(`model_configs: ${model_configs}`);
+  const handleSaveConfig = (config: APIConfig) => {
+    logger.info(`Saving config: ${JSON.stringify(config)}`);
+    // You might want to update your apiConfigs here or dispatch an action to update the state
+  };
 
   return (
     <div
       className={cn(
-        "bg-background text-foreground flex flex-col h-screen ",
+        "flex h-screen flex-col bg-background text-foreground ",
         theme,
       )}
     >
-      <Header />
-      <div className="flex-1 overflow-hidden ">
+      <Header onSave={handleSaveConfig} />
+      <div className="flex-1 overflow-hidden">
         <div className="flex h-full">
           <div className="w-64 p-4">
-            <h2 className="mb-4 text-lg font-semibold">Select API</h2>
-            <ModelSelector />
+            <h2 className="mb-4 font-semibold text-lg">Select API</h2>
+            {/* <ModelSelector /> */}
 
-            <DropdownProvider items={model_configs}>
+            {/* <DropdownProvider items={apiConfigs.map((config) => config.id)}>
               <div className="p-4">
-                <h1 className="mb-4 text-2xl font-bold">Dropdown Selection</h1>
+                <h1 className="mb-4 font-bold text-2xl">Dropdown Selection</h1>
                 <DropdownContainer />
               </div>
-            </DropdownProvider>
+            </DropdownProvider> */}
 
             <ChatControls
               onSendMessage={sendUserMessage}
@@ -59,7 +59,7 @@ function App() {
       </div>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="p-4 bg-white rounded-lg">Loading...</div>
+          <div className="rounded-lg bg-white p-4">Loading...</div>
         </div>
       )}
     </div>

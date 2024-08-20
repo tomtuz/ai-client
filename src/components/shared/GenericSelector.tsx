@@ -1,13 +1,13 @@
-import { useState, useCallback } from "react";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@cn/ui";
+import { useCallback, useState } from "react";
 
 interface ModelSelectorProps {
   title?: string;

@@ -1,6 +1,6 @@
-import OpenAI from 'openai';
-import { MessageContents } from '@/types/chat';
-import { APIConfig } from '../types';
+import { MessageContents } from "@/types/chat";
+import OpenAI from "openai";
+import { APIConfig } from "../types";
 
 const {
   EXPOSE_OPENROUTER_API_KEY,
@@ -15,8 +15,8 @@ const openai = new OpenAI({
     // "HTTP-Referer": YOUR_SITE_URL, // Optional, for including your app on openrouter.ai rankings.
     // "X-Title": YOUR_SITE_NAME, // Optional. Shows in rankings on openrouter.ai.
   },
-  dangerouslyAllowBrowser: true
-})
+  dangerouslyAllowBrowser: true,
+});
 
 export const DeepseekCoderOpenAIConfig: APIConfig = {
   id: "deepseek-coder-openai",
@@ -27,17 +27,17 @@ export const DeepseekCoderOpenAIConfig: APIConfig = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
       model: "deepseek/deepseek-coder",
       messages: [
         {
           role: "user",
-          content: message
-        }
-      ]
-    })
+          content: message,
+        },
+      ],
+    }),
   }),
   parseResponse: (response): MessageContents => {
     console.log("responseData: ", response);
@@ -51,10 +51,10 @@ export const DeepseekCoderOpenAIConfig: APIConfig = {
         input: response.usage.prompt_tokens,
         output: response.usage.completion_tokens,
         total: response.usage.total_tokens,
-      }
+      },
     };
 
     console.log("parsedData: ", parsedData);
     return parsedData;
-  }
+  },
 };

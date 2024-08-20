@@ -1,5 +1,5 @@
-import { LoggerInterface, OutputLevel } from "./types";
 import c from "picocolors";
+import { LoggerInterface, OutputLevel } from "./types";
 
 export function createCLILogger(): LoggerInterface {
   const level: OutputLevel = {

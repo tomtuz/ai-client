@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
 import { MessageContents } from "@/types/chat";
 import { MessageList } from "@components/MessageWindow";
+import React, { useEffect, useRef, useState } from "react";
 import { Input, Textarea } from "./cn/ui";
 
 interface ChatWindowProps {

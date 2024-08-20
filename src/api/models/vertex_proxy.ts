@@ -1,13 +1,12 @@
-import { MessageContents } from '@/types/chat';
-import { APIConfig } from '../types';
+import { ModelConfig } from "@/api/types";
+import { MessageContents } from "@/types/chat";
+import { APIConfig } from "../types";
 
-const {
-  EXPOSE_ANTHROPIC_PROXY_URL,
-  EXPOSE_ANTHROPIC_PROXY_API_KEY
-} = import.meta.env
+const { EXPOSE_ANTHROPIC_PROXY_URL, EXPOSE_ANTHROPIC_PROXY_API_KEY } =
+  import.meta.env;
 
 // Google Vertex AI endpoint used with a custom reverse proxy
-export const VertexProxyConfig: APIConfig = {
+export const VertexProxyAPI: APIConfig = {
   id: "vertex-anthropic-proxy",
   name: "Anthropic (vertex r-proxy)",
   endpoint: EXPOSE_ANTHROPIC_PROXY_URL || "",
@@ -17,21 +16,21 @@ export const VertexProxyConfig: APIConfig = {
     headers: {
       "Content-Type": "application/json",
       "x-api-key": EXPOSE_ANTHROPIC_PROXY_API_KEY || "",
-      "anthropic-version": "2023-06-01"
+      "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
       model: "claude-3-5-sonnet-20240620",
       messages: [
         {
           role: "user",
-          content: message
-        }
+          content: message,
+        },
       ],
-      max_tokens: 100
-    })
+      max_tokens: 100,
+    }),
   }),
   parseResponse: (response): MessageContents => {
-    console.log("responseData: ", response)
+    console.log("responseData: ", response);
     const parsedData = {
       id: response.id,
       type: response.type,
@@ -40,11 +39,27 @@ export const VertexProxyConfig: APIConfig = {
       content: response.content,
       tokens: {
         input: response.usage.input_tokens,
-        output: response.usage.output_tokens
-      }
+        output: response.usage.output_tokens,
+      },
     };
 
-    console.log("parsedData: ", parsedData)
-    return parsedData
-  }
+    console.log("parsedData: ", parsedData);
+    return parsedData;
+  },
+};
+
+export const VertexProxyConfig: ModelConfig = {
+  modelId: "vertex-anthropic-proxy",
+  displayName: "Anthropic (vertex r-proxy)",
+  modelName: "claude-3-5-sonnet-20240620",
+  url: EXPOSE_ANTHROPIC_PROXY_URL || "",
+  apiToken: EXPOSE_ANTHROPIC_PROXY_API_KEY || "",
+  apiProvider: "Custom",
+  headers: [
+    {
+      "Content-Type": "application/json",
+      "x-api-key": EXPOSE_ANTHROPIC_PROXY_API_KEY || "",
+      "anthropic-version": "2023-06-01",
+    },
+  ],
 };

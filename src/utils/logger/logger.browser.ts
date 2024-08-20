@@ -51,7 +51,10 @@ export function createBrowserLogger(): LoggerInterface {
     }
   };
 
-  const status = (message?: any, status_type?: "success" | "error" | "info" | "custom"): void => {
+  const status = (
+    message?: any,
+    status_type?: "success" | "error" | "info" | "custom",
+  ): void => {
     const prefix = status_type ? `[${status_type.toUpperCase()}] ` : "";
     console.log(`${prefix}${message}`);
   };
@@ -68,6 +71,6 @@ export function createBrowserLogger(): LoggerInterface {
     header,
     step,
     struct,
-    status
+    status,
   };
 }

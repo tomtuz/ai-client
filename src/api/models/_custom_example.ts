@@ -16,11 +16,11 @@ export const CustomModelConfig: APIConfig = {
       messages: [
         {
           role: "user",
-          content: message
-        }
+          content: message,
+        },
       ],
-      max_tokens: 100
-    })
+      max_tokens: 100,
+    }),
   }),
-  parseResponse: (response: any) => response.choices[0].message.content
+  parseResponse: (response: any) => response.choices[0].message.content,
 };

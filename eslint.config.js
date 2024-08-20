@@ -1,5 +1,5 @@
-import path from "node:path";
 import globals from "globals";
+import path from "node:path";
 import { saveConfigData } from "./scripts/eslint_debug.mjs";
 
 // Default
@@ -7,8 +7,8 @@ import JSPlugin from "@eslint/js";
 import TSPlugin from "typescript-eslint";
 
 // React
-import ReactBasePlugin from "eslint-plugin-react";
 import ReactModernPlugin from "@eslint-react/eslint-plugin";
+import ReactBasePlugin from "eslint-plugin-react";
 import ReactHooksPlugin from "eslint-plugin-react-hooks";
 import ReactRefreshPlugin from "eslint-plugin-react-refresh";
 

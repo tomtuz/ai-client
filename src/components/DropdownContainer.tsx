@@ -1,7 +1,7 @@
-import React from "react";
-import { useDropdown } from "@/hooks/useDropdown.ts";
-import { GenericDropdown } from "./GenericDropdown.tsx";
 import { openRouterModels } from "@/constants/index.ts";
+import { useDropdown } from "@/hooks/useDropdown.ts";
+import React from "react";
+import { GenericDropdown } from "./GenericDropdown.tsx";
 
 export const DropdownContainer: React.FC = () => {
   const {

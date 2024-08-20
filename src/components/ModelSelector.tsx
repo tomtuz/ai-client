@@ -1,19 +1,20 @@
-import { useState, useCallback } from "react";
 import { setApiConfig } from "@/services/api";
-import {
-  apiConfigs,
-  DEFAULT_MODEL_CONFIG,
-  getModelConfigById,
-} from "@/api/model_configs";
+import { useCallback, useState } from "react";
+// import {
+//   apiConfigs,
+//   DEFAULT_MODEL_CONFIG,
+//   getModelConfigById,
+// } from "@/api/models/model_configs";
 
+import { DEFAULT_MODEL_CONFIG, getModelConfigById } from "@/api/api_configs";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@cn/ui";
 
 interface ModelSelectorProps {
@@ -52,14 +53,14 @@ export function ModelSelector({
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Models</SelectLabel>
-              {apiConfigs.map((model) => (
+              {/* {apiConfigs.map((model) => (
                 <SelectItem
                   key={model.id}
                   value={model.id}
                 >
                   {model.name}
                 </SelectItem>
-              ))}
+              ))} */}
             </SelectGroup>
           </SelectContent>
         </Select>

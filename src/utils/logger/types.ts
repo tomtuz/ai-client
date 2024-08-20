@@ -10,7 +10,10 @@ export interface LoggerInterface {
   header(message?: any, ...optionalParams: any[]): void;
   step(message?: any, ...optionalParams: any[]): void;
   struct(message: string, obj: any, verbose?: boolean): void;
-  status(message?: any, status_type?: "success" | "error" | "info" | "custom"): void;
+  status(
+    message?: any,
+    status_type?: "success" | "error" | "info" | "custom",
+  ): void;
 }
 
 export enum LogLevel {

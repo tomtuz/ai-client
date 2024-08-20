@@ -1,16 +1,18 @@
-import sqlite3 from "sqlite3";
 import { execSync } from "node:child_process";
 import fs from "node:fs";
+import sqlite3 from "sqlite3";
 
-const DB_PATH = './db/main.db';
-const SCHEMA_PATH = './db/db_schema.sql';
-const SEED_SCRIPT_PATH = './db/seed.ts';
+const DB_PATH = "./db/main.db";
+const SCHEMA_PATH = "./db/db_schema.sql";
+const SEED_SCRIPT_PATH = "./db/seed.ts";
 
 function setupDatabase(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     // Check if the database file already exists
     if (fs.existsSync(DB_PATH)) {
-      console.log(`Database file ${DB_PATH} already exists. Skipping creation.`);
+      console.log(
+        `Database file ${DB_PATH} already exists. Skipping creation.`,
+      );
       return resolve();
     }
 
@@ -35,7 +37,7 @@ function setupDatabase(): Promise<void> {
 
 function seedData() {
   console.log(`Seeding data using ${SEED_SCRIPT_PATH}.`);
-  execSync(`tsx ${SEED_SCRIPT_PATH}`, { stdio: 'inherit' });
+  execSync(`tsx ${SEED_SCRIPT_PATH}`, { stdio: "inherit" });
   console.log("Data seeded successfully.");
 }
 
@@ -44,7 +46,7 @@ async function main() {
     await setupDatabase();
     seedData();
   } catch (err) {
-    console.error('Error setting up the database:', err);
+    console.error("Error setting up the database:", err);
   }
 }
 

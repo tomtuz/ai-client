@@ -1,9 +1,7 @@
 import { APIConfig } from "../types";
 
-const {
-  EXPOSE_OPENROUTER_URL_NATIVE,
-  EXPOSE_OPENROUTER_API_KEY
-} = import.meta.env
+const { EXPOSE_OPENROUTER_URL_NATIVE, EXPOSE_OPENROUTER_API_KEY } = import.meta
+  .env;
 
 export const OpenRouterConfig: APIConfig = {
   id: "open-router",
@@ -15,7 +13,7 @@ export const OpenRouterConfig: APIConfig = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
       model: "model_name",
@@ -24,14 +22,14 @@ export const OpenRouterConfig: APIConfig = {
           role: "user",
           content: [
             // message
-            { "role": "user", "content": "What is the meaning of life?" },
-          ]
-        }
+            { role: "user", content: "What is the meaning of life?" },
+          ],
+        },
       ],
-      max_tokens: 100
-    })
+      max_tokens: 100,
+    }),
   }),
-  parseResponse: (response: any) => response.choices[0].message.content
+  parseResponse: (response: any) => response.choices[0].message.content,
 };
 
 // API example
