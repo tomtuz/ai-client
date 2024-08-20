@@ -1,6 +1,6 @@
 import { MessageContents } from "@/types/chat";
 import OpenAI from "openai";
-import { APIConfig } from "../types";
+import { APIConfig, ModelConfig } from "../types";
 
 const {
   EXPOSE_OPENROUTER_API_KEY,
@@ -18,7 +18,7 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-export const DeepseekCoderOpenAIConfig: APIConfig = {
+export const DeepseekCoderOpenAIAPI: APIConfig = {
   id: "deepseek-coder-openai",
   name: "Deepseek Coder (OpenAI API)",
   endpoint: "https://openrouter.ai/api/v1/chat/completions",
@@ -56,5 +56,18 @@ export const DeepseekCoderOpenAIConfig: APIConfig = {
 
     console.log("parsedData: ", parsedData);
     return parsedData;
+  },
+};
+
+export const DeepseekCoderOpenAIConfig: ModelConfig = {
+  modelId: "deepseek-coder-openai",
+  displayName: "Deepseek Coder (OpenAI API)",
+  modelName: "deepseek/deepseek-coder",
+  url: EXPOSE_OPENROUTER_URL_OPEN || "https://openrouter.ai/api/v1",
+  apiToken: EXPOSE_OPENROUTER_API_KEY,
+  apiProvider: "OpenAI",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
   },
 };

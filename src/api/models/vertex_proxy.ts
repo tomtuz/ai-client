@@ -55,11 +55,9 @@ export const VertexProxyConfig: ModelConfig = {
   url: EXPOSE_ANTHROPIC_PROXY_URL || "",
   apiToken: EXPOSE_ANTHROPIC_PROXY_API_KEY || "",
   apiProvider: "Custom",
-  headers: [
-    {
-      "Content-Type": "application/json",
-      "x-api-key": EXPOSE_ANTHROPIC_PROXY_API_KEY || "",
-      "anthropic-version": "2023-06-01",
-    },
-  ],
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": EXPOSE_ANTHROPIC_PROXY_API_KEY || "",
+    "anthropic-version": "2023-06-01",
+  },
 };

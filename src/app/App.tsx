@@ -1,4 +1,4 @@
-import { APIConfig } from "@/api/types";
+import { ModelConfig } from "@/api/types";
 import ChatWindow from "@/components/ChatWindow";
 import { Header } from "@/components/Header";
 import { ChatControls } from "@/components/devtools/ChatControls";
@@ -19,7 +19,7 @@ function App() {
     processResponseMessage,
   } = useChat();
 
-  const handleSaveConfig = (config: APIConfig) => {
+  const handleSaveConfig = (config: ModelConfig) => {
     logger.info(`Saving config: ${JSON.stringify(config)}`);
     // You might want to update your apiConfigs here or dispatch an action to update the state
   };
@@ -31,7 +31,7 @@ function App() {
         theme,
       )}
     >
-      <Header onSave={handleSaveConfig} />
+      <Header onSaveConfig={handleSaveConfig} />
       <div className="flex-1 overflow-hidden">
         <div className="flex h-full">
           <div className="w-64 p-4">

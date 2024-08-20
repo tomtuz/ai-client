@@ -1,9 +1,9 @@
-import { APIConfig } from "../types";
+import { APIConfig, ModelConfig } from "../types";
 
 const { EXPOSE_OPENROUTER_URL_NATIVE, EXPOSE_OPENROUTER_API_KEY } = import.meta
   .env;
 
-export const OpenRouterConfig: APIConfig = {
+export const OpenRouterAPI: APIConfig = {
   id: "open-router",
   name: "Open Router (Native)",
   endpoint: EXPOSE_OPENROUTER_URL_NATIVE,
@@ -32,19 +32,15 @@ export const OpenRouterConfig: APIConfig = {
   parseResponse: (response: any) => response.choices[0].message.content,
 };
 
-// API example
-// fetch("https://openrouter.ai/api/v1/chat/completions", {
-//   method: "POST",
-//   headers: {
-//     "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-//     "HTTP-Referer": `${YOUR_SITE_URL}`, // Optional, for including your app on openrouter.ai rankings.
-//     "X-Title": `${YOUR_SITE_NAME}`, // Optional. Shows in rankings on openrouter.ai.
-//     "Content-Type": "application/json"
-//   },
-//   body: JSON.stringify({
-//     "model": "openai/gpt-3.5-turbo",
-//     "messages": [
-//       {"role": "user", "content": "What is the meaning of life?"},
-//     ],
-//   })
-// });
+export const OpenRouterConfig: ModelConfig = {
+  modelId: "open-router",
+  displayName: "Open Router (Native)",
+  modelName: "model_name",
+  url: EXPOSE_OPENROUTER_URL_NATIVE || "",
+  apiToken: EXPOSE_OPENROUTER_API_KEY || "",
+  apiProvider: "Native",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
+  },
+};

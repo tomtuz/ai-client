@@ -1,6 +1,6 @@
-import { APIConfig } from "../types";
+import { APIConfig, ModelConfig } from "../types";
 
-export const CustomModelConfig: APIConfig = {
+export const CustomModelAPI: APIConfig = {
   id: "custom-model",
   name: "Custom model",
   endpoint: "https://test.test.dev/v1/api",
@@ -23,4 +23,19 @@ export const CustomModelConfig: APIConfig = {
     }),
   }),
   parseResponse: (response: any) => response.choices[0].message.content,
+};
+
+export const CustomModelConfig: ModelConfig = {
+  modelId: "cusotm-model",
+  displayName: "Custom model",
+  modelName: "custom/custom-model",
+  url: "https://example.com/",
+  apiToken: "custom_token",
+  apiProvider: "Custom",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer bearer_token",
+    // "HTTP-Referer": YOUR_SITE_URL || "", // optional
+    // "X-Title": YOUR_SITE_NAME || "", // optional
+  },
 };

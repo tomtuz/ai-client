@@ -5,7 +5,12 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "ignore": ["node_modules/**", "dist/**", "docs/**"]
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      "docs/**",
+      "src/components/cn/ui/**"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -35,17 +40,17 @@
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
-      },
-      "nursery": {
-        "useSortedClasses": {
-          "level": "info",
-          "fix": "unsafe",
-          "options": {
-            "attributes": ["className"],
-            "functions": ["clsx", "cva", "tw"]
-          }
-        }
       }
+      // "nursery": {
+      //   "useSortedClasses": {
+      //     "level": "info",
+      //     "fix": "unsafe",
+      //     "options": {
+      //       "attributes": ["className"],
+      //       "functions": ["clsx", "cva", "tw"]
+      //     }
+      //   }
+      // }
     },
     "ignore": []
   },
