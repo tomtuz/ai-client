@@ -1,11 +1,7 @@
-import { MessageContents } from '@/types/chat';
-import { APIConfig } from '../types';
+import { MessageContents } from "@/types/chat";
+import { APIConfig } from "../types";
 
-const {
-  OPENROUTER_API_KEY,
-  YOUR_SITE_URL,
-  YOUR_SITE_NAME
-} = import.meta.env;
+const { OPENROUTER_API_KEY, YOUR_SITE_URL, YOUR_SITE_NAME } = import.meta.env;
 
 export const DeepseekCoderNativeConfig: APIConfig = {
   id: "deepseek-coder-native",
@@ -16,19 +12,19 @@ export const DeepseekCoderNativeConfig: APIConfig = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
       "HTTP-Referer": YOUR_SITE_URL || "",
-      "X-Title": YOUR_SITE_NAME || ""
+      "X-Title": YOUR_SITE_NAME || "",
     },
     body: JSON.stringify({
       model: "deepseek/deepseek-coder",
       messages: [
         {
           role: "user",
-          content: message
-        }
-      ]
-    })
+          content: message,
+        },
+      ],
+    }),
   }),
   parseResponse: (response): MessageContents => {
     console.log("responseData: ", response);
@@ -40,11 +36,11 @@ export const DeepseekCoderNativeConfig: APIConfig = {
       content: response.choices[0].message.content,
       tokens: {
         input: response.usage.input_tokens,
-        output: response.usage.output_tokens
-      }
+        output: response.usage.output_tokens,
+      },
     };
 
-    console.log("parsedData: ", parsedData)
+    console.log("parsedData: ", parsedData);
     return parsedData;
-  }
-}
+  },
+};

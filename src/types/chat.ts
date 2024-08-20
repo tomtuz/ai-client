@@ -4,12 +4,12 @@ export interface MessageContents {
   role?: string;
   model?: string;
   content: {
-    type?: string
-    text: string
-  }[]
+    type?: string;
+    text: string;
+  }[];
   tokens?: {
-    input: number
-    output: number
+    input: number;
+    output: number;
   };
 }
 

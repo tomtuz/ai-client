@@ -1,33 +1,36 @@
 export interface ModelInfo {
-  maxTokens: number
+  maxTokens: number;
   /**
    * (dollars) / 1M tokens
    */
-  inputPrice: number
+  inputPrice: number;
   /**
    * (dollars) / 1M tokens
    */
-  outputPrice: number
+  outputPrice: number;
 }
 
-export type AnthropicModelId = keyof typeof anthropicModels
-export const anthropicDefaultModelId: AnthropicModelId = "claude-3-5-sonnet-20240620"
+export type AnthropicModelId = keyof typeof anthropicModels;
+export const anthropicDefaultModelId: AnthropicModelId =
+  "claude-3-5-sonnet-20240620";
 export const anthropicModels = {
   "claude-3-5-sonnet-20240620": {
     maxTokens: 8192,
     inputPrice: 3.0,
     outputPrice: 15.0,
   },
-  "claude-3-sonnet-20240229": { // fallback
+  "claude-3-sonnet-20240229": {
+    // fallback
     maxTokens: 4096,
     inputPrice: 3.0,
     outputPrice: 15.0,
   },
-} as const satisfies Record<string, ModelInfo>
+} as const satisfies Record<string, ModelInfo>;
 
 // OpenRouter
-export type OpenRouterModelId = keyof typeof openRouterModels
-export const openRouterDefaultModelId: OpenRouterModelId = "anthropic/claude-3.5-sonnet:beta"
+export type OpenRouterModelId = keyof typeof openRouterModels;
+export const openRouterDefaultModelId: OpenRouterModelId =
+  "anthropic/claude-3.5-sonnet:beta";
 export const openRouterModels = {
   // moderated
   "anthropic/claude-3.5-sonnet": {
@@ -67,4 +70,4 @@ export const openRouterModels = {
     inputPrice: 10,
     outputPrice: 30,
   },
-} as const satisfies Record<string, ModelInfo>
+} as const satisfies Record<string, ModelInfo>;

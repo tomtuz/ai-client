@@ -1,7 +1,7 @@
-import { APIConfig } from '@/api/types';
-import { MessageContents } from '@/types/chat';
-import { OpenRouterModelId } from '@/constants';
-import { logger } from '@/utils/logger';
+import { APIConfig } from "@/api/types";
+import { OpenRouterModelId } from "@/constants";
+import { MessageContents } from "@/types/chat";
+import { logger } from "@/utils/logger";
 
 let _api_config: APIConfig | null = null;
 let _openrouter_model: OpenRouterModelId | null = null;
@@ -17,7 +17,7 @@ export const setOpenRouterModel = (model_id: OpenRouterModelId) => {
 
 export async function sendMessage(message: string): Promise<MessageContents> {
   if (!_api_config) {
-    throw new Error('API not configured');
+    throw new Error("API not configured");
   }
 
   const request = _api_config.prepareRequest(message);
@@ -26,7 +26,7 @@ export async function sendMessage(message: string): Promise<MessageContents> {
     const response = await fetch(request.url, {
       method: request.method,
       headers: request.headers,
-      body: request.body
+      body: request.body,
     });
 
     if (!response.ok) {

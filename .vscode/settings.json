@@ -1,14 +1,14 @@
 {
   "editor.defaultFormatter": "biomejs.biome",
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": [
-    "source.addMissingImports"
+    "source.addMissingImports",
+    "source.organizeImports",
+    "source.removeUnusedImports"
     // "source.fixAll.eslint"
   ],
 
+  "onWillSaveTextDocument": "",
   "files.associations": {
     "*.css": "tailwindcss"
   },
@@ -44,9 +44,23 @@
   ],
 
   "typescript.tsdk": "node_modules/typescript/lib",
+  // By default it will use `dprint` found on the path,
+  // but use this when you want to specify a custom location.
+  // Include the executable name (ex. on windows "C:\\some-dir\\dprint.exe")
+  // "dprint.path": "C:/Users/tto/.dprint/bin/dprint.exe",
+  "dprint.path": "C:\\Users\\tto\\.dprint\\bin\\dprint.exe",
+  // Change this to `true` to get verbose logging
+  "dprint.verbose": false,
+  // Change this to `true` to enable the experimental lsp (requires dprint 0.45+)
+  "dprint.experimentalLsp": false,
 
-  // React 'classNames' regex for Headwind class sorter
-  "headwind.classRegex": {
-    "javascriptreact": "(?:\\bclassName\\s*=\\s*[\\\"\\'](https://github.com/heybourn/headwind/blob/master/[_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\'])|(?:\\btw\\s*`([_a-zA-Z0-9\\s\\-\\:\\/]*)`)"
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "isAsync": true,
+        "match": "\\.(ts|tsx|js|jsx|html)$",
+        "cmd": "pnpm biome lint \"${file}\" --write --unsafe"
+      }
+    ]
   }
 }

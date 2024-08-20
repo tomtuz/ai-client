@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { bundledLanguages, bundledThemes, createHighlighter } from "shiki";
 
 import type { ShikiCodeProps } from "./types";

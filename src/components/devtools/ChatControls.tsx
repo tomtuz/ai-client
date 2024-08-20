@@ -1,10 +1,10 @@
-import { apiConfigs } from "@/api/model_configs";
-import { Button } from "../cn/ui";
+import { apiConfigs } from "@/api";
+import { DeepseekCoderOpenAIConfig } from "@/api/models/deepseek_coder_openai";
 import { code_string } from "@/tests/msg_code";
 import { msg_long } from "@/tests/msg_long";
 import { MessageContents } from "@/types/chat";
 import { MessageContent } from "openai/resources/beta/threads/messages";
-import { DeepseekCoderOpenAIConfig } from "@/api/models/deepseek_coder_openai";
+import { Button } from "../cn/ui";
 
 interface ChatControlsProps {
   onAddTestMessage: (textMsg: string, role: string) => void;

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -6,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@cn/ui";
+import React from "react";
 
 interface GenericDropdownProps {
   options: string[];

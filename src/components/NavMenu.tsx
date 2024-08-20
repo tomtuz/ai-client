@@ -1,10 +1,10 @@
 import {
   Menubar,
-  MenubarMenu,
-  MenubarTrigger,
   MenubarContent,
   MenubarItem,
+  MenubarMenu,
   MenubarSeparator,
+  MenubarTrigger,
 } from "@cn/ui";
 
 export function NavMenu() {
