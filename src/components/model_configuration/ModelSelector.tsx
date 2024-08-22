@@ -1,21 +1,14 @@
+import { DEFAULT_MODEL_CONFIG } from "@/api";
 import { setApiConfig } from "@/services/api";
-import { useCallback, useState } from "react";
-// import {
-//   apiConfigs,
-//   DEFAULT_MODEL_CONFIG,
-//   getModelConfigById,
-// } from "@/api/models/model_configs";
-
-import { DEFAULT_MODEL_CONFIG, getModelConfigById } from "@/api/api_configs";
 import {
   Select,
   SelectContent,
   SelectGroup,
-  SelectItem,
   SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@cn/ui";
+import { useState } from "react";
 
 interface ModelSelectorProps {
   title?: string;
@@ -29,15 +22,15 @@ export function ModelSelector({
     return DEFAULT_MODEL_CONFIG.id;
   });
 
-  const handleApiChange = useCallback((configId: string) => {
-    const selectedModel = getModelConfigById(configId);
-    if (selectedModel) {
-      setSelectedApi(selectedModel.id);
-      setApiConfig(selectedModel);
-    } else {
-      console.error(`No configuration found for id: ${configId}`);
-    }
-  }, []);
+  // const handleApiChange = useCallback((configId: string) => {
+  //   // const selectedModel = getModelConfigById(configId);
+  //   if (selectedModel) {
+  //     setSelectedApi(selectedModel.id);
+  //     setApiConfig(selectedModel);
+  //   } else {
+  //     console.error(`No configuration found for id: ${configId}`);
+  //   }
+  // }, []);
 
   return (
     <div className="my-component">
@@ -45,7 +38,7 @@ export function ModelSelector({
       <div className="content">
         <Select
           value={selectedApi}
-          onValueChange={handleApiChange}
+          // onValueChange={handleApiChange}
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select AI model" />

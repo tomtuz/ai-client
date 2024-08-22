@@ -1,5 +1,5 @@
 import { ModelConfig } from "@/api/types";
-import { Input, Label } from "@cn/ui";
+import { Input, Label, Select } from "@cn/ui";
 import { HeadersForm } from "./HeadersForm";
 
 interface ConfigFormProps {
@@ -21,24 +21,41 @@ export function ConfigForm({ config, onUpdate }: ConfigFormProps) {
         <Label htmlFor="displayName">Display Name</Label>
         <Input
           id="displayName"
-          value={config.displayName || ""}
+          value={config.displayName}
           onChange={(e) => onUpdate("displayName", e.target.value)}
         />
       </div>
       <div>
-        <Label htmlFor="modelId">Model ID</Label>
+        <Label htmlFor="modelName">Model Name</Label>
         <Input
-          id="modelId"
-          value={config.modelId || ""}
-          onChange={(e) => onUpdate("modelId", e.target.value)}
+          id="modelName"
+          value={config.modelName}
+          onChange={(e) => onUpdate("modelName", e.target.value)}
         />
       </div>
       <div>
-        <Label htmlFor="url">URL</Label>
+        {/* <Label htmlFor="idSelectProvider">API Provider</Label> */}
+        <Select
+          // id="idSelectProvider"
+          value={config.apiProvider}
+          onValueChange={(e: any) =>
+            onUpdate(
+              "apiProvider",
+              e.target.value as ModelConfig["apiProvider"],
+            )
+          }
+        >
+          <option value="OpenAI">OpenAI</option>
+          <option value="Native">Native</option>
+          <option value="Custom">Custom</option>
+        </Select>
+      </div>
+      <div>
+        <Label htmlFor="endpoint">Endpoint</Label>
         <Input
-          id="url"
-          value={config.url}
-          onChange={(e) => onUpdate("url", e.target.value)}
+          id="endpoint"
+          value={config.endpoint}
+          onChange={(e) => onUpdate("endpoint", e.target.value)}
         />
       </div>
       <div>
@@ -51,7 +68,7 @@ export function ConfigForm({ config, onUpdate }: ConfigFormProps) {
         />
       </div>
       <HeadersForm
-        headers={config.headers || {}}
+        headers={config.headers}
         onUpdate={handleHeadersUpdate}
       />
     </form>

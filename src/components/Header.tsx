@@ -1,16 +1,17 @@
 import { ModelConfig } from "@/api/types";
+import { logger } from "@/utils/logger";
 import React from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { NavMenu } from "./NavMenu";
 import { Button } from "./cn/ui";
 import { ModelDialog } from "./model_configuration/ModelDialog";
 
-interface HeaderProps {
-  onSaveConfig: (config: ModelConfig) => void;
-}
-
-export function Header({ onSaveConfig }: HeaderProps) {
+export function Header() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+
+  const handleSaveConfig = (config: ModelConfig) => {
+    logger.info(`Saving config: ${JSON.stringify(config)}`);
+  };
 
   return (
     <>
@@ -18,20 +19,19 @@ export function Header({ onSaveConfig }: HeaderProps) {
         <NavMenu />
         <DarkModeToggle />
         <div className="flex gap-4">
-          <Button className="hover:underline">List</Button>
           <Button
             className="hover:underline"
             onClick={() => setIsDialogOpen(true)}
           >
             Models
           </Button>
-          <Button className="hover:underline">Option2</Button>
+          <Button className="hover:underline">Agent Builder</Button>
         </div>
       </nav>
       <ModelDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        onSave={onSaveConfig}
+        onSave={handleSaveConfig}
       />
     </>
   );

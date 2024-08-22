@@ -1,9 +1,18 @@
-import { APIConfig, ModelConfig } from "../types";
+import { MessageContent } from "@/types/chat";
+import { ModelConfig } from "../types";
 
-export const CustomModelAPI: APIConfig = {
+export const CustomModelConfig: ModelConfig = {
   id: "custom-model",
-  name: "Custom model",
+  displayName: "Custom model",
+  modelName: "custom/custom-model",
+  apiProvider: "Custom",
   endpoint: "https://test.test.dev/v1/api",
+  apiToken: "custom_token",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer bearer_token",
+    "custom-header": "header-value",
+  },
   prepareRequest: (message: string) => ({
     url: "https://test.test.dev/v1/api",
     method: "POST",
@@ -13,29 +22,15 @@ export const CustomModelAPI: APIConfig = {
     },
     body: JSON.stringify({
       model: "model_name",
-      messages: [
-        {
-          role: "user",
-          content: message,
-        },
-      ],
+      messages: [{ role: "user", content: message }],
       max_tokens: 100,
     }),
   }),
-  parseResponse: (response: any) => response.choices[0].message.content,
-};
-
-export const CustomModelConfig: ModelConfig = {
-  modelId: "cusotm-model",
-  displayName: "Custom model",
-  modelName: "custom/custom-model",
-  url: "https://example.com/",
-  apiToken: "custom_token",
-  apiProvider: "Custom",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer bearer_token",
-    // "HTTP-Referer": YOUR_SITE_URL || "", // optional
-    // "X-Title": YOUR_SITE_NAME || "", // optional
-  },
+  parseResponse: (response: any): MessageContent => ({
+    id: response.id,
+    type: "chat.completion",
+    role: "assistant",
+    model: response.model,
+    content: [{ text: response.choices[0].message.content }],
+  }),
 };
