@@ -18,24 +18,24 @@ export function ShikiRender({ code, language }: ShikiCodeProps) {
   // TypeError: context.getSource is not a function
   // Rule: "react-hooks/exhaustive-deps"
 
-  // useEffect(() => {
-  //   const renderCode = async () => {
-  //     if (!code) return;
+  useEffect(() => {
+    const renderCode = async () => {
+      if (!code) return;
 
-  //     if (!Object.keys(bundledLanguages).includes(language || "")) {
-  //       language = "text";
-  //     }
+      if (!Object.keys(bundledLanguages).includes(language || "")) {
+        language = "text";
+      }
 
-  //     const htmlData = await highlighter.codeToHtml(code, {
-  //       lang: language || "typescript",
-  //       theme: "poimandres",
-  //     });
+      const htmlData = await highlighter.codeToHtml(code, {
+        lang: language || "typescript",
+        theme: "poimandres",
+      });
 
-  //     setRenderedCode(htmlData);
-  //   };
+      setRenderedCode(htmlData);
+    };
 
-  //   renderCode();
-  // }, [code, language]);
+    renderCode();
+  }, [code, language]);
 
   if (!code) {
     return null;

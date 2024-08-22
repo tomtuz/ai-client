@@ -1,37 +1,21 @@
-import { MessageContents } from "@/types/chat";
-
-export interface APIConfig {
-  id: string;
-  name: string;
-  endpoint: string;
-  apiToken?: "string";
-  prepareRequest: (message: string) => {
-    url: string;
-    method: string;
-    headers: Record<string, string>;
-    body: any;
-  };
-  parseResponse: (response: any) => MessageContents;
-  headers?: string[];
-}
-
-// OR Record<string, string>;
-type headerOptions = {
-  [key: string]: string;
-};
-
-type headerOption2 = Record<string, string>;
+import { MessageContent } from "@/types/chat";
 
 export interface ModelConfig {
-  modelId?: string;
-  displayName?: string;
-  modelName?: string;
-  url: string;
+  id: string;
+  displayName: string;
+  modelName: string;
+  apiProvider: "OpenAI" | "Native" | "Custom";
+  endpoint: string;
   apiToken?: string;
-  apiProvider?: "OpenAI" | "Native" | "Custom";
-  // custom headers
-  headers?: headerOptions;
-  body?: string[];
-  // prompt sent on every message
+  headers: Record<string, string>;
+  prepareRequest: (message: string) => RequestConfig;
+  parseResponse: (response: any) => MessageContent;
   systemMessage?: string;
+}
+
+export interface RequestConfig {
+  url: string;
+  method: string;
+  headers: Record<string, string>;
+  body: any;
 }

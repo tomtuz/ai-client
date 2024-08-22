@@ -1,8 +1,5 @@
-// src/components/model_configuration/ModelDialog.tsx
-
-import { ModelConfigs } from "@/api";
 import { ModelConfig } from "@/api/types";
-import { useConfigurationManager } from "@/hooks/useConfigurationManager";
+import { useConfiguration } from "@/context/ConfigContext";
 import { Button } from "@cn/ui/button";
 import {
   Dialog,
@@ -11,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@cn/ui/dialog";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ConfigForm } from "./ConfigForm";
 import { ConfigList } from "./ConfigList";
 import { SearchConfigs } from "./ConfigSearch";
@@ -23,29 +20,69 @@ interface ModelDialogProps {
 }
 
 export function ModelDialog({ isOpen, onClose, onSave }: ModelDialogProps) {
-  const {
-    configs,
-    selectedConfig,
-    searchTerm,
-    setSearchTerm,
-    handleConfigSelect,
-    handleUpdateConfig,
-    handleAddConfig,
-    handleDeleteConfig,
-  } = useConfigurationManager(ModelConfigs);
+  const { configManager, activeConfig, setActiveConfig, isLoading } =
+    useConfiguration();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const filteredConfigs = useMemo(() => {
-    return configs.filter((config) =>
-      config.displayName?.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
-  }, [configs, searchTerm]);
+    if (!configManager) return [];
+    return configManager
+      .getConfigs()
+      .filter((config: ModelConfig) =>
+        config.displayName.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+  }, [configManager, searchTerm]);
+
+  const handleConfigSelect = (config: ModelConfig) => {
+    setActiveConfig(config.id);
+  };
+
+  const handleUpdateConfig = (field: keyof ModelConfig, value: any) => {
+    if (activeConfig && configManager) {
+      const updatedConfig = { ...activeConfig, [field]: value };
+      configManager.updateConfig(updatedConfig);
+      setActiveConfig(updatedConfig.id);
+    }
+  };
+
+  const handleAddConfig = () => {
+    if (configManager) {
+      const newConfig: ModelConfig = {
+        id: `new-model-${Date.now()}`,
+        displayName: "New Model",
+        modelName: "",
+        apiProvider: "Custom",
+        endpoint: "",
+        headers: {},
+        prepareRequest: () => ({
+          url: "",
+          method: "POST",
+          headers: {},
+          body: {},
+        }),
+        parseResponse: (response) => response,
+      };
+      configManager.addConfig(newConfig);
+      setActiveConfig(newConfig.id);
+    }
+  };
+
+  const handleDeleteConfig = (id: string) => {
+    if (configManager) {
+      configManager.removeConfig(id);
+    }
+  };
 
   const handleSave = () => {
-    if (selectedConfig) {
-      onSave(selectedConfig);
+    if (activeConfig) {
+      onSave(activeConfig);
       onClose();
     }
   };
+
+  if (isLoading) {
+    return null; // or return a loading spinner
+  }
 
   return (
     <Dialog
@@ -68,31 +105,30 @@ export function ModelDialog({ isOpen, onClose, onSave }: ModelDialogProps) {
             />
             <ConfigList
               filteredConfigs={filteredConfigs}
-              selectedConfig={selectedConfig}
+              selectedConfig={activeConfig}
               onConfigSelect={handleConfigSelect}
             />
             <Button onClick={handleAddConfig}>Add New</Button>
           </div>
           <div className="w-2/3 space-y-4">
-            {selectedConfig && (
+            {activeConfig && (
               <ConfigForm
-                config={selectedConfig}
-                onUpdate={(field, value) => handleUpdateConfig(field, value)}
+                config={activeConfig}
+                onUpdate={handleUpdateConfig}
               />
             )}
             <div className="flex justify-end gap-2">
               <Button
                 onClick={() =>
-                  selectedConfig?.modelId &&
-                  handleDeleteConfig(selectedConfig.modelId)
+                  activeConfig && handleDeleteConfig(activeConfig.id)
                 }
-                disabled={!selectedConfig}
+                disabled={!activeConfig}
               >
                 Delete
               </Button>
               <Button
                 onClick={handleSave}
-                disabled={!selectedConfig}
+                disabled={!activeConfig}
               >
                 Save Changes
               </Button>
