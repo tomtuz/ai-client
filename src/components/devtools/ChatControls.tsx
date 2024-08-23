@@ -39,7 +39,7 @@ export function ChatControls({
           break;
         case "testResponse":
           onTestResponse({
-            id: uuidv4.toString(),
+            id: uuidv4(),
             role: "assistant",
             type: "text",
             content: [{ text: "This is a test response.", type: "testxt" }],
