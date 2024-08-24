@@ -1,0 +1,8 @@
+node_modules/**
+dist/**
+docs/**
+.vscode/**
+tsconfig.json
+tsconfig.node.json
+tsconfig.app.json
+src/components/cn/ui/**

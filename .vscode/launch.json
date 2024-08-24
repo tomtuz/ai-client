@@ -33,7 +33,17 @@
         "order": 1
       },
       "console": "integratedTerminal"
-    }
+    },
+    {
+      "name": "Eslint (Run)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "args": ["pnpm", "tsx", "scripts/eslint_debug.mjs"],
+      "smartStep": true,
+      "trace": true,
+      "cwd": "${workspaceFolder}",
+    },
   ],
   "inputs": [
     {

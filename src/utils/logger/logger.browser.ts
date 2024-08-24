@@ -1,4 +1,4 @@
-import { LoggerInterface, OutputLevel } from "./types";
+import { LoggerInterface, OutputLevel } from './types';
 
 export function createBrowserLogger(): LoggerInterface {
   const level: OutputLevel = {
@@ -38,11 +38,11 @@ export function createBrowserLogger(): LoggerInterface {
   };
 
   const header = (message?: any, ...optionalParams: any[]): void => {
-    console.log(`\n${message}\n${"=".repeat(String(message).length)}`);
+    console.log(`\n${message}\n${'='.repeat(String(message).length)}`);
   };
 
   const step = (message?: any, ...optionalParams: any[]): void => {
-    console.log(`\n${message}\n${"-".repeat(String(message).length)}`);
+    console.log(`\n${message}\n${'-'.repeat(String(message).length)}`);
   };
 
   const struct = (message: string, obj: any, verbose = true): void => {
@@ -53,9 +53,9 @@ export function createBrowserLogger(): LoggerInterface {
 
   const status = (
     message?: any,
-    status_type?: "success" | "error" | "info" | "custom",
+    status_type?: 'success' | 'error' | 'info' | 'custom'
   ): void => {
-    const prefix = status_type ? `[${status_type.toUpperCase()}] ` : "";
+    const prefix = status_type ? `[${status_type.toUpperCase()}] ` : '';
     console.log(`${prefix}${message}`);
   };
 

@@ -1,67 +1,108 @@
-import { ModelConfig } from "@/api/types";
-import { useConfiguration } from "@/context/ConfigContext";
-import { Button } from "@cn/ui/button";
+import { ProviderConfig } from '@/types/modelConfig';
+
+import { useConfiguration } from '@/context/ConfigContext';
+import { Button } from '@cn/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@cn/ui/dialog";
-import { useMemo, useState } from "react";
-import { ConfigForm } from "./ConfigForm";
-import { ConfigList } from "./ConfigList";
-import { SearchConfigs } from "./ConfigSearch";
+} from '@cn/ui/dialog';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ConfigForm } from './ConfigForm';
+import { ConfigList } from './ConfigList';
+import { SearchConfigs } from './ConfigSearch';
 
 interface ModelDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (config: ModelConfig) => void;
+  onSave: (config: ProviderConfig) => void;
 }
 
 export function ModelDialog({ isOpen, onClose, onSave }: ModelDialogProps) {
   const { configManager, activeConfig, setActiveConfig, isLoading } =
     useConfiguration();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredConfigs = useMemo(() => {
     if (!configManager) return [];
     return configManager
       .getConfigs()
-      .filter((config: ModelConfig) =>
-        config.displayName.toLowerCase().includes(searchTerm.toLowerCase()),
+      .filter((config): config is ProviderConfig => 'displayName' in config)
+      .filter((config) =>
+        config.displayName.toLowerCase().includes(searchTerm.toLowerCase())
       );
   }, [configManager, searchTerm]);
 
-  const handleConfigSelect = (config: ModelConfig) => {
-    setActiveConfig(config.id);
-  };
+  const handleConfigSelect = useCallback(
+    (config: ProviderConfig) => {
+      setActiveConfig(config.id);
+    },
+    [setActiveConfig]
+  );
 
-  const handleUpdateConfig = (field: keyof ModelConfig, value: any) => {
-    if (activeConfig && configManager) {
-      const updatedConfig = { ...activeConfig, [field]: value };
-      configManager.updateConfig(updatedConfig);
-      setActiveConfig(updatedConfig.id);
+  const handleUpdateConfig = useCallback(
+    (field: keyof ProviderConfig, value: any) => {
+      if (activeConfig && configManager) {
+        const updatedConfig = {
+          ...activeConfig,
+          [field]: value,
+        } as ProviderConfig;
+        configManager.updateConfig(updatedConfig);
+      }
+    },
+    [activeConfig, configManager]
+  );
+
+  useEffect(() => {
+    if (activeConfig) {
+      setActiveConfig(activeConfig.id);
     }
-  };
+  }, [activeConfig, setActiveConfig]);
 
   const handleAddConfig = () => {
     if (configManager) {
-      const newConfig: ModelConfig = {
+      const newConfig: ProviderConfig = {
+        // .app-scope
         id: `new-model-${Date.now()}`,
-        displayName: "New Model",
-        modelName: "",
-        apiProvider: "Custom",
-        endpoint: "",
+        displayName: 'New Model',
+
+        // .app-scope/.logic - changes model interaction
+        systemMessage: '',
+        apiProvider: 'OpenAI',
+
+        // .essential-scope
+        apiKey: '',
+        baseURL: '',
+        modelName: '',
+
+        // .app-scope/.requests
         headers: {},
-        prepareRequest: () => ({
-          url: "",
-          method: "POST",
-          headers: {},
-          body: {},
-        }),
-        parseResponse: (response) => response,
+        prepareRequest: (message: string) => {
+          return {
+            url: '',
+            method: '',
+            headers: {},
+            body: null,
+          };
+        },
+
+        parseResponse: (response: any) => {
+          return {
+            id: '',
+            type: '',
+            role: '',
+            model: '',
+            content: [{ type: '', text: '' }],
+            tokens: {
+              input: 0,
+              output: 0,
+            },
+          };
+        },
       };
+
       configManager.addConfig(newConfig);
       setActiveConfig(newConfig.id);
     }
@@ -85,11 +126,8 @@ export function ModelDialog({ isOpen, onClose, onSave }: ModelDialogProps) {
   }
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={onClose}
-    >
-      <DialogContent className="sm:max-w-[900px]">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="bg-background text-foreground sm:max-w-[900px]">
         <DialogHeader>
           <DialogTitle>Edit Configuration</DialogTitle>
           <DialogDescription>
@@ -112,13 +150,11 @@ export function ModelDialog({ isOpen, onClose, onSave }: ModelDialogProps) {
           </div>
           <div className="w-2/3 space-y-4">
             {activeConfig && (
-              <ConfigForm
-                config={activeConfig}
-                onUpdate={handleUpdateConfig}
-              />
+              <ConfigForm config={activeConfig} onUpdate={handleUpdateConfig} />
             )}
             <div className="flex justify-end gap-2">
               <Button
+                variant="destructive"
                 onClick={() =>
                   activeConfig && handleDeleteConfig(activeConfig.id)
                 }
@@ -126,10 +162,7 @@ export function ModelDialog({ isOpen, onClose, onSave }: ModelDialogProps) {
               >
                 Delete
               </Button>
-              <Button
-                onClick={handleSave}
-                disabled={!activeConfig}
-              >
+              <Button onClick={handleSave} disabled={!activeConfig}>
                 Save Changes
               </Button>
             </div>

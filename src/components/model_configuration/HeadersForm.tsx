@@ -1,6 +1,6 @@
-import { Button, Input } from "@cn/ui";
-import { X } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { Button, Input } from '@cn/ui';
+import { X } from 'lucide-react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface HeadersFormProps {
   headers: Record<string, string>;
@@ -24,20 +24,20 @@ export function HeadersForm({ headers, onUpdate }: HeadersFormProps) {
             ? isKey
               ? [value, header[1]]
               : [header[0], value]
-            : header,
-        ),
+            : header
+        )
       );
     },
-    [],
+    []
   );
 
   const handleAddHeader = useCallback(() => {
-    setLocalHeaders((prevHeaders) => [...prevHeaders, ["", ""]]);
+    setLocalHeaders((prevHeaders) => [...prevHeaders, ['', '']]);
   }, []);
 
   const handleRemoveHeader = useCallback((index: number) => {
     setLocalHeaders((prevHeaders) =>
-      prevHeaders.filter((_, idx) => idx !== index),
+      prevHeaders.filter((_, idx) => idx !== index)
     );
   }, []);
 
@@ -45,21 +45,18 @@ export function HeadersForm({ headers, onUpdate }: HeadersFormProps) {
     (e: React.FormEvent) => {
       e.preventDefault();
       const newHeaders = Object.fromEntries(
-        localHeaders.filter(([key]) => key !== ""),
+        localHeaders.filter(([key]) => key !== '')
       );
       onUpdate(newHeaders);
     },
-    [localHeaders, onUpdate],
+    [localHeaders, onUpdate]
   );
 
   return (
     <div className="flex flex-col space-y-2">
       <label className="text-sm font-medium">Headers</label>
       {localHeaders.map(([key, value], index) => (
-        <div
-          key={index}
-          className="flex items-center gap-2"
-        >
+        <div key={index} className="flex items-center gap-2">
           <Input
             placeholder="Key"
             value={key}
@@ -83,10 +80,7 @@ export function HeadersForm({ headers, onUpdate }: HeadersFormProps) {
           </Button>
         </div>
       ))}
-      <Button
-        type="button"
-        onClick={handleAddHeader}
-      >
+      <Button type="button" onClick={handleAddHeader}>
         Add Header
       </Button>
     </div>

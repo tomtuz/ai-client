@@ -1,15 +1,15 @@
-import { ModelConfig } from "@/api/types";
-import { logger } from "@/utils/logger";
-import React from "react";
-import { DarkModeToggle } from "./DarkModeToggle";
-import { NavMenu } from "./NavMenu";
-import { Button } from "./cn/ui";
-import { ModelDialog } from "./model_configuration/ModelDialog";
+import { ProviderConfig } from '@/types/modelConfig';
+import { logger } from '@/utils/logger';
+import React from 'react';
+import { DarkModeToggle } from './DarkModeToggle';
+import { NavMenu } from './NavMenu';
+import { Button } from './cn/ui';
+import { ModelDialog } from './model_configuration/ModelDialog';
 
 export function Header() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
-  const handleSaveConfig = (config: ModelConfig) => {
+  const handleSaveConfig = (config: ProviderConfig) => {
     logger.info(`Saving config: ${JSON.stringify(config)}`);
   };
 

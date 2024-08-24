@@ -1,24 +1,24 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 export const responseData = () => {
   return {
     id: uuidv4(),
-    model: "deepseek/deepseek-coder",
-    object: "chat.completion",
+    model: 'deepseek/deepseek-coder',
+    object: 'chat.completion',
     created: 1723952896,
     choices: [
       {
         logprobs: null,
-        finish_reason: "stop",
+        finish_reason: 'stop',
         index: 0,
         message: {
-          role: "assistant",
+          role: 'assistant',
           content:
-            "I am an intelligent assistant, DeepSeek Coder, developed by the Chinese company DeepSeek.",
+            'I am an intelligent assistant, DeepSeek Coder, developed by the Chinese company DeepSeek.',
         },
       },
     ],
-    system_fingerprint: "fp_sometest",
+    system_fingerprint: 'fp_sometest',
     usage: {
       prompt_tokens: 13,
       completion_tokens: 19,

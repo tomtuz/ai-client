@@ -1,12 +1,13 @@
-import react from "@vitejs/plugin-react-swc";
-import { fileURLToPath, URL } from "node:url";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import viteReactSWC from "@vitejs/plugin-react-swc";
+import { URL, fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
     target: "esnext",
   },
-  plugins: [react()],
+  plugins: [viteReactSWC(), TanStackRouterVite()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

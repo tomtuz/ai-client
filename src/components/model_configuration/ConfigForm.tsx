@@ -1,28 +1,25 @@
-import { ModelConfig } from "@/api/types";
-import { Input, Label, Select } from "@cn/ui";
-import { HeadersForm } from "./HeadersForm";
+import { ProviderConfig } from '@/types/modelConfig';
+import { Input, Label, Select } from '@cn/ui';
+import { HeadersForm } from './HeadersForm';
 
 interface ConfigFormProps {
-  config: ModelConfig;
-  onUpdate: (field: keyof ModelConfig, value: any) => void;
+  config: ProviderConfig;
+  onUpdate: (field: keyof ProviderConfig, value: any) => void;
 }
 
 export function ConfigForm({ config, onUpdate }: ConfigFormProps) {
   const handleHeadersUpdate = (newHeaders: Record<string, string>) => {
-    onUpdate("headers", newHeaders);
+    onUpdate('headers' as keyof ProviderConfig, newHeaders);
   };
 
   return (
-    <form
-      className="space-y-4"
-      onSubmit={(e) => e.preventDefault()}
-    >
+    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
       <div>
         <Label htmlFor="displayName">Display Name</Label>
         <Input
           id="displayName"
           value={config.displayName}
-          onChange={(e) => onUpdate("displayName", e.target.value)}
+          onChange={(e) => onUpdate('displayName', e.target.value)}
         />
       </div>
       <div>
@@ -30,19 +27,14 @@ export function ConfigForm({ config, onUpdate }: ConfigFormProps) {
         <Input
           id="modelName"
           value={config.modelName}
-          onChange={(e) => onUpdate("modelName", e.target.value)}
+          onChange={(e) => onUpdate('modelName', e.target.value)}
         />
       </div>
       <div>
-        {/* <Label htmlFor="idSelectProvider">API Provider</Label> */}
         <Select
-          // id="idSelectProvider"
           value={config.apiProvider}
-          onValueChange={(e: any) =>
-            onUpdate(
-              "apiProvider",
-              e.target.value as ModelConfig["apiProvider"],
-            )
+          onValueChange={(value) =>
+            onUpdate('apiProvider' as keyof ProviderConfig, value)
           }
         >
           <option value="OpenAI">OpenAI</option>
@@ -54,8 +46,8 @@ export function ConfigForm({ config, onUpdate }: ConfigFormProps) {
         <Label htmlFor="endpoint">Endpoint</Label>
         <Input
           id="endpoint"
-          value={config.endpoint}
-          onChange={(e) => onUpdate("endpoint", e.target.value)}
+          value={config.baseURL}
+          onChange={(e) => onUpdate('baseURL', e.target.value)}
         />
       </div>
       <div>
@@ -63,14 +55,11 @@ export function ConfigForm({ config, onUpdate }: ConfigFormProps) {
         <Input
           id="apiToken"
           type="password"
-          value={config.apiToken || ""}
-          onChange={(e) => onUpdate("apiToken", e.target.value)}
+          value={config.apiKey || ''}
+          onChange={(e) => onUpdate('apiKey', e.target.value)}
         />
       </div>
-      <HeadersForm
-        headers={config.headers}
-        onUpdate={handleHeadersUpdate}
-      />
+      <HeadersForm headers={config.headers} onUpdate={handleHeadersUpdate} />
     </form>
   );
 }

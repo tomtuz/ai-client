@@ -5,7 +5,7 @@ import {
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from "@cn/ui";
+} from '@cn/ui';
 
 export function NavMenu() {
   return (

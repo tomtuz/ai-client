@@ -1,11 +1,11 @@
-import { ModelConfig } from "@/api/types";
+import { ProviderConfig } from '@/types/modelConfig';
 
-export async function loadConfigurations(): Promise<ModelConfig[]> {
+export async function loadConfigurations(): Promise<ProviderConfig[]> {
   // Simulate an async operation (e.g., fetching from an API or reading a file)
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // For now, we'll return the configurations from local storage if available
-  const storedConfigs = localStorage.getItem("modelConfigurations");
+  const storedConfigs = localStorage.getItem('modelConfigurations');
   if (storedConfigs) {
     return JSON.parse(storedConfigs);
   }
@@ -15,6 +15,6 @@ export async function loadConfigurations(): Promise<ModelConfig[]> {
   return [];
 }
 
-export function saveConfigurations(configs: ModelConfig[]): void {
-  localStorage.setItem("modelConfigurations", JSON.stringify(configs));
+export function saveConfigurations(configs: ProviderConfig[]): void {
+  localStorage.setItem('modelConfigurations', JSON.stringify(configs));
 }

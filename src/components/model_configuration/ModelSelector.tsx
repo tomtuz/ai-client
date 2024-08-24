@@ -1,5 +1,5 @@
-import { DEFAULT_MODEL_CONFIG } from "@/api";
-import { setApiConfig } from "@/services/api";
+import { DEFAULT_MODEL_CONFIG } from '@/api';
+import { setApiConfig } from '@/services/api';
 import {
   Select,
   SelectContent,
@@ -7,15 +7,15 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@cn/ui";
-import { useState } from "react";
+} from '@cn/ui';
+import { useState } from 'react';
 
 interface ModelSelectorProps {
   title?: string;
 }
 
 export function ModelSelector({
-  title = "Select AI Model",
+  title = 'Select AI Model',
 }: Readonly<ModelSelectorProps>) {
   const [selectedApi, setSelectedApi] = useState<string>(() => {
     setApiConfig(DEFAULT_MODEL_CONFIG);

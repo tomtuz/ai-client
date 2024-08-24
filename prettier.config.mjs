@@ -3,13 +3,14 @@
  * @type {import("prettier").Config}
  */
 const config = {
-  // trailingComma: 'none',
-  // tabWidth: 2,
-  // semi: false,
-  // singleQuote: true,
-  // printWidth: 80,
-  // useTabs: false,
-  // bracketSpacing: true,
+  singleQuote: true,
+  trailingComma: "es5",
+  tabWidth: 2,
+  semi: true,
+  printWidth: 80,
+  endOfLine: "lf",
+  bracketSameLine: false,
+  arrowParens: "always",
   plugins: ["prettier-plugin-tailwindcss"],
 };
 

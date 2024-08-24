@@ -1,3 +1,5 @@
+// DOMAIN: Logger
+
 export interface LoggerInterface {
   setLevels(levelObj: Partial<OutputLevel>): void;
   setLevel(level: keyof OutputLevel, value: boolean): void;
@@ -12,7 +14,25 @@ export interface LoggerInterface {
   struct(message: string, obj: any, verbose?: boolean): void;
   status(
     message?: any,
-    status_type?: "success" | "error" | "info" | "custom",
+    status_type?: 'success' | 'error' | 'info' | 'custom'
+  ): void;
+}
+
+export abstract class Logger implements LoggerInterface {
+  abstract setLevels(levelObj: Partial<OutputLevel>): void;
+  abstract setLevel(level: keyof OutputLevel, value: boolean): void;
+  abstract getLevels(): OutputLevel;
+  abstract error(message?: any, ...optionalParams: any[]): void;
+  abstract warn(message?: any, ...optionalParams: any[]): void;
+  abstract info(message?: any, ...optionalParams: any[]): void;
+  abstract debug(message?: any, ...optionalParams: any[]): void;
+  abstract verbose(message?: any, ...optionalParams: any[]): void;
+  abstract header(message?: any, ...optionalParams: any[]): void;
+  abstract step(message?: any, ...optionalParams: any[]): void;
+  abstract struct(message: string, obj: any, verbose?: boolean): void;
+  abstract status(
+    message?: any,
+    status_type?: 'success' | 'error' | 'info' | 'custom'
   ): void;
 }
 
