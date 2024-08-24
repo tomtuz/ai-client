@@ -1,38 +1,39 @@
-import { MessageContent } from "@/types/chat";
-import { ModelConfig } from "../types";
+import { MessageContent } from '@/types/chat';
+import { ProviderConfig } from '@/types/modelConfig';
 
 const { EXPOSE_OPENROUTER_API_KEY, EXPOSE_OPENROUTER_URL_OPEN } = import.meta
   .env;
 
-export const DeepseekCoderOpenAIConfig: ModelConfig = {
-  id: "deepseek-coder-openai",
-  displayName: "Deepseek Coder (OpenAI API)",
-  modelName: "deepseek/deepseek-coder",
-  apiProvider: "OpenAI",
-  endpoint:
+export const DeepseekCoderOpenAIConfig: ProviderConfig = {
+  id: 'deepseek-coder-openai',
+  displayName: 'Deepseek Coder (OpenAI API)',
+  modelName: 'deepseek/deepseek-coder',
+  systemMessage: '',
+  apiProvider: 'OpenAI',
+  baseURL:
     EXPOSE_OPENROUTER_URL_OPEN ||
-    "https://openrouter.ai/api/v1/chat/completions",
-  apiToken: EXPOSE_OPENROUTER_API_KEY,
+    'https://openrouter.ai/api/v1/chat/completions',
+  apiKey: EXPOSE_OPENROUTER_API_KEY,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
   },
   prepareRequest: (message: string) => ({
     url:
       EXPOSE_OPENROUTER_URL_OPEN ||
-      "https://openrouter.ai/api/v1/chat/completions",
-    method: "POST",
+      'https://openrouter.ai/api/v1/chat/completions',
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${EXPOSE_OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "deepseek/deepseek-coder",
-      messages: [{ role: "user", content: message }],
+      model: 'deepseek/deepseek-coder',
+      messages: [{ role: 'user', content: message }],
     }),
   }),
   parseResponse: (response: any): MessageContent => {
-    console.log("responseData: ", response);
+    console.log('responseData: ', response);
     const parsedData: MessageContent = {
       id: response.id,
       type: response.object,
@@ -44,7 +45,7 @@ export const DeepseekCoderOpenAIConfig: ModelConfig = {
         output: response.usage.completion_tokens,
       },
     };
-    console.log("parsedData: ", parsedData);
+    console.log('parsedData: ', parsedData);
     return parsedData;
   },
 };

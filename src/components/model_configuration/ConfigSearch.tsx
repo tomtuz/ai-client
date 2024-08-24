@@ -1,5 +1,5 @@
-import { Input, Label } from "@cn/ui";
-import { Search } from "lucide-react";
+import { Input, Label } from '@cn/ui';
+import { Search } from 'lucide-react';
 
 interface SearchConfigsProps {
   searchTerm: string;
@@ -12,10 +12,7 @@ export function SearchConfigs({
 }: SearchConfigsProps) {
   return (
     <div className="space-y-2">
-      <Label
-        htmlFor="searchInput"
-        className="text-sm font-medium"
-      >
+      <Label htmlFor="searchInput" className="text-sm font-medium">
         Model search
       </Label>
       <div className="relative">
@@ -28,7 +25,7 @@ export function SearchConfigs({
           }
           className="pr-10"
         />
-        <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
       </div>
     </div>
   );

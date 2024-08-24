@@ -1,5 +1,5 @@
-import c from "picocolors";
-import { LoggerInterface, OutputLevel } from "./types";
+import c from 'picocolors';
+import { LoggerInterface, OutputLevel } from './types';
 
 export function createCLILogger(): LoggerInterface {
   const level: OutputLevel = {
@@ -9,14 +9,14 @@ export function createCLILogger(): LoggerInterface {
   };
 
   const status_prefix = {
-    success: { ascii: "[OK]" },
-    error: { ascii: "[X]" },
-    info: { ascii: "[i]" },
+    success: { ascii: '[OK]' },
+    error: { ascii: '[X]' },
+    info: { ascii: '[i]' },
   };
 
   const setLevels = (levelObj: Partial<OutputLevel>): void => {
     Object.assign(level, levelObj);
-    verbose("\nlog_level: ", level);
+    verbose('\nlog_level: ', level);
   };
 
   const setLevel = (levelKey: keyof OutputLevel, value: boolean): void => {
@@ -47,12 +47,12 @@ export function createCLILogger(): LoggerInterface {
   };
 
   const header = (message?: any, ...optionalParams: any[]): void => {
-    const divider = "=".repeat(String(message).length);
+    const divider = '='.repeat(String(message).length);
     console.log(`\n${message}\n${divider}`);
   };
 
   const step = (message?: any, ...optionalParams: any[]): void => {
-    const divider = "-".repeat(String(message).length);
+    const divider = '-'.repeat(String(message).length);
     console.log(`\n${c.blue(message)}\n${divider}`);
   };
 
@@ -64,16 +64,16 @@ export function createCLILogger(): LoggerInterface {
 
   const status = (
     message?: any,
-    status_type?: "success" | "error" | "info" | "custom",
+    status_type?: 'success' | 'error' | 'info' | 'custom'
   ): void => {
     switch (status_type) {
-      case "success":
+      case 'success':
         console.log(`${c.green(status_prefix.success.ascii)} ${message}`);
         break;
-      case "error":
+      case 'error':
         console.log(`${c.red(status_prefix.error.ascii)} ${message}`);
         break;
-      case "info":
+      case 'info':
         console.log(`${c.blue(status_prefix.info.ascii)} ${message}`);
         break;
       default:

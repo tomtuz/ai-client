@@ -1,13 +1,13 @@
 // models
-import { ModelConfig } from "@/api/types";
-import { CustomModelConfig } from "./models/_custom_example";
-import { DeepseekNativeOpenAIConfig } from "./models/deepseek_coder_native";
-import { DeepseekCoderOpenAIConfig } from "./models/deepseek_coder_openai";
-import { OpenRouterConfig } from "./models/open_router";
-import { VertexProxyConfig } from "./models/vertex_proxy";
+import { ProviderConfig } from '@/types/modelConfig';
+import { CustomModelConfig } from './providers/_custom_example';
+import { DeepseekNativeOpenAIConfig } from './providers/deepseek_coder_native';
+import { DeepseekCoderOpenAIConfig } from './providers/deepseek_coder_openai';
+import { OpenRouterConfig } from './providers/open_router';
+import { VertexProxyConfig } from './providers/vertex_proxy';
 
-// Model Configs
-export const ModelConfigs: ModelConfig[] = [
+// Model Configs | Although these are API related
+export const ProviderConfigs: ProviderConfig[] = [
   VertexProxyConfig,
   OpenRouterConfig,
   DeepseekCoderOpenAIConfig,
@@ -17,4 +17,4 @@ export const ModelConfigs: ModelConfig[] = [
   // Add other API configurations here
 ];
 
-export const DEFAULT_MODEL_CONFIG = ModelConfigs[0];
+export const DEFAULT_MODEL_CONFIG = ProviderConfigs[0];

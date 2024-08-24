@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { bundledLanguages, bundledThemes, createHighlighter } from "shiki";
+import { useEffect, useState } from 'react';
+import { bundledLanguages, bundledThemes, createHighlighter } from 'shiki';
 
-import type { ShikiCodeProps } from "./types";
+import type { ShikiCodeProps } from './types';
 
 const highlighter = await createHighlighter({
   themes: Object.keys(bundledThemes),
@@ -9,10 +9,10 @@ const highlighter = await createHighlighter({
 });
 
 export function ShikiRender({ code, language }: ShikiCodeProps) {
-  console.log("code: ", code);
-  console.log("language: ", language);
+  console.log('code: ', code);
+  console.log('language: ', language);
 
-  const [renderedCode, setRenderedCode] = useState<string>("");
+  const [renderedCode, setRenderedCode] = useState<string>('');
 
   // TODO: fix error (useEffect)
   // TypeError: context.getSource is not a function
@@ -22,13 +22,13 @@ export function ShikiRender({ code, language }: ShikiCodeProps) {
     const renderCode = async () => {
       if (!code) return;
 
-      if (!Object.keys(bundledLanguages).includes(language || "")) {
-        language = "text";
+      if (!Object.keys(bundledLanguages).includes(language || '')) {
+        language = 'text';
       }
 
       const htmlData = await highlighter.codeToHtml(code, {
-        lang: language || "typescript",
-        theme: "poimandres",
+        lang: language || 'typescript',
+        theme: 'poimandres',
       });
 
       setRenderedCode(htmlData);

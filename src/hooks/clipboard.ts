@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export interface useCopyToClipboardProps {
   timeout?: number;
@@ -8,7 +8,7 @@ export function useClipBoard({ timeout = 2000 }: useCopyToClipboardProps) {
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const copyToClipboard = (value: string) => {
-    if (typeof window === "undefined" || !navigator.clipboard?.writeText) {
+    if (typeof window === 'undefined' || !navigator.clipboard?.writeText) {
       return;
     }
 

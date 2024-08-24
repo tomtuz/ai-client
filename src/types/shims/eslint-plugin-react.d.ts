@@ -1,6 +1,6 @@
-declare module "eslint-plugin-react" {
-  import type { Rule } from "eslint";
-  const plugin: Omit<ESLint.Plugin, "configs"> & {
+declare module 'eslint-plugin-react' {
+  import type { Rule } from 'eslint';
+  const plugin: Omit<ESLint.Plugin, 'configs'> & {
     deprecatedRules;
     rules: Record<string, Rule.RuleModuleRecord<string, Rule.RuleModule>>;
     configs: Record<string, ESLint.ConfigData>;

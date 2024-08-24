@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@cn/ui";
-import React from "react";
+} from '@cn/ui';
+import React from 'react';
 
 interface GenericDropdownProps {
   options: string[];
@@ -21,19 +21,13 @@ export const GenericDropdown: React.FC<GenericDropdownProps> = ({
   placeholder,
 }) => {
   return (
-    <Select
-      value={value}
-      onValueChange={onChange}
-    >
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {options.map((option) => (
-          <SelectItem
-            key={option}
-            value={option}
-          >
+          <SelectItem key={option} value={option}>
             {option}
           </SelectItem>
         ))}

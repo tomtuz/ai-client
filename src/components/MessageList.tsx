@@ -1,5 +1,5 @@
-import { Message } from "@/components/chat/Message";
-import { MessageContent } from "@/types/chat";
+import { Message } from '@/components/chat/Message';
+import { MessageContent } from '@/types/chat';
 
 interface MessageListProps {
   messages: MessageContent[];
@@ -8,7 +8,7 @@ interface MessageListProps {
 
 export function MessageList({ messages, onDeleteMessage }: MessageListProps) {
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 space-y-6">
+    <div className="mx-auto w-full max-w-4xl space-y-6 p-4">
       {messages?.map((message) => (
         <Message
           key={message.id}

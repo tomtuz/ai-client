@@ -1,6 +1,5 @@
 import globals from "globals";
 import path from "node:path";
-import { saveConfigData } from "./scripts/eslint_debug.mjs";
 
 // Default
 import JSPlugin from "@eslint/js";
@@ -12,25 +11,17 @@ import ReactBasePlugin from "eslint-plugin-react";
 import ReactHooksPlugin from "eslint-plugin-react-hooks";
 import ReactRefreshPlugin from "eslint-plugin-react-refresh";
 
-// const PLUGIN_MODULES = [
-//   { module: JSPlugin, name: "JavaScript" },
-//   { module: TSPlugin, name: "TypeScript" },
-//   { module: ReactBasePlugin, name: "React" },
-//   { module: ReactModernPlugin, name: "ReactModern" },
-//   { module: ReactHooksPlugin, name: "ReactHooks" },
-//   { module: ReactRefreshPlugin, name: "ReactRefresh" },
-// ];
+// Prettier
+import PrettierPlugin from "eslint-config-prettier";
 
-// Debugging 'rules':
-// 1. unwrap relevant configs and define them epxlicitly (old/* examples)
-// 2. check if 'saveConfigData' logs pass correct values (jsonviewer.stack.hu)
-// 3. use ESLint Inspect
-// saveConfigData(PLUGIN_MODULES);
+// Debugging:
+// - scripts/debug_eslint/eslint_debug.mjs
 
 // Config Scopes:
 // 1. JavaScript & TypeScript (Base, no overload)
 // 2. React
-// 3. Global Scope
+// 3. Prettier (disables self-relevant rules, must be last)
+// 4. Global Scope
 
 export default [
   // 1. JavaScript & TypeScript (Base)
@@ -66,6 +57,7 @@ export default [
     plugins: {
       // @eslint-react
       ...ReactModernPlugin.configs.recommended.plugins,
+      // @eslint-react/debug/class-component
       react: ReactBasePlugin,
       "react-hooks": ReactHooksPlugin,
       "react-refresh": ReactRefreshPlugin,
@@ -102,11 +94,18 @@ export default [
     },
   },
 
-  // 3. Global Scope
+  // 3. Prettier
+  {
+    name: "PRETTIER_SCOPE",
+    rules: PrettierPlugin.rules,
+  },
+
+  // 4. Global Scope
   {
     name: "GLOBAL_SCOPE",
     ignores: [
       "dist/*",
+      "docs/**/*",
       "src/assets/icons/*",
       "src/components/cn/ui/*",
       "tailwind.config.ts",

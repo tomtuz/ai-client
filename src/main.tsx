@@ -1,20 +1,36 @@
+import "@/assets/styles/base.css";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import React from "react";
 import { createRoot } from "react-dom/client";
-
-import App from "@/app/App";
-import "@/assets/styles/base.css";
+import { themeConfig } from "./config/theme-config";
+import { ChatProvider } from "./context/ChatContext";
 import { ThemeProvider } from "./providers/theme-provider";
+import { routeTree } from "./routeTree.gen";
 
-const root = document.getElementById("root");
-if (!root) throw new Error("No root element found");
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
-createRoot(root).render(
+const router = createRouter({ routeTree });
+
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error(
+    "Failed to find the root element. Please check your HTML file for an element with id 'root'.",
+  );
+}
+
+createRoot(rootElement).render(
   <React.StrictMode>
     <ThemeProvider
-      defaultTheme="dark"
-      storageKey="vite-ui-theme"
+      defaultTheme={themeConfig.defaultTheme}
+      storageKey={themeConfig.storageKey}
     >
-      <App />
+      <ChatProvider>
+        <RouterProvider router={router} />
+      </ChatProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );

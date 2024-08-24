@@ -1,9 +1,8 @@
-import { useClipBoard } from "@/hooks/clipboard";
-import { MessageContent } from "@/types/chat";
-import { AIMessage } from "./AIMessage";
-import { AccordionUserMessage } from "./AccordionUserMessage";
-import { DeleteButton } from "./DeleteButton";
-import { UserMessage } from "./UserMessage";
+import { useClipBoard } from '@/hooks/clipboard';
+import { MessageContent } from '@/types/chat';
+import { AIMessage } from './AIMessage';
+import { AccordionUserMessage } from './AccordionUserMessage';
+import { UserMessage } from './UserMessage';
 
 interface MessageProps {
   message: MessageContent;
@@ -21,33 +20,26 @@ export function Message({
   const handleCopyMessage = () => {
     const codeContent =
       message.content.length > 1
-        ? message.content.join("\n")
+        ? message.content.join('\n')
         : message.content[0].text;
     copyToClipboard(codeContent);
   };
 
+  const MessageComponent =
+    message.role === 'ai'
+      ? AIMessage
+      : useShadcnAccordion
+        ? AccordionUserMessage
+        : UserMessage;
+
   return (
-    <div className="relative mb-6">
-      {message.role === "ai" ? (
-        <AIMessage
-          message={message}
-          onCopy={handleCopyMessage}
-          isCopied={isCopied}
-        />
-      ) : useShadcnAccordion ? (
-        <AccordionUserMessage
-          message={message}
-          onCopy={handleCopyMessage}
-          isCopied={isCopied}
-        />
-      ) : (
-        <UserMessage
-          message={message}
-          onCopy={handleCopyMessage}
-          isCopied={isCopied}
-        />
-      )}
-      <DeleteButton onDelete={() => onDelete(message.id)} />
+    <div className="mb-6">
+      <MessageComponent
+        message={message}
+        onCopy={handleCopyMessage}
+        onDelete={() => onDelete(message.id)}
+        isCopied={isCopied}
+      />
     </div>
   );
 }

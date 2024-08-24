@@ -1,10 +1,11 @@
-import { Button } from "@/components/cn/ui";
+import { MessageActions } from './MessageActions';
 
 interface MessageHeaderProps {
   role: string;
   model?: string;
   tokens?: number;
   onCopy: () => void;
+  onDelete: () => void;
   isCopied: boolean;
 }
 
@@ -13,30 +14,36 @@ export function MessageHeader({
   model,
   tokens,
   onCopy,
+  onDelete,
   isCopied,
 }: MessageHeaderProps) {
   return (
-    <div className="flex justify-between items-center px-4 py-2 border-b">
+    <div className="flex items-center justify-between border-b bg-chat-header px-4 py-2">
       <div className="flex items-center space-x-2">
         <span
-          className={`text-sm font-semibold ${role === "AI" ? "text-blue-600" : "text-gray-600"}`}
+          className={`text-sm font-semibold ${
+            role === 'AI'
+              ? 'text-blue-600 dark:text-blue-400'
+              : 'text-foreground'
+          }`}
         >
           {role}
         </span>
         {model && (
-          <span className="text-xs bg-gray-200 rounded-full px-2 py-1">
+          <span className="rounded-full bg-gray-200 px-2 py-1 text-xs text-foreground dark:bg-gray-700">
             {model}
           </span>
         )}
       </div>
       <div className="flex items-center space-x-2">
-        <span className="text-xs text-gray-500">Tokens: {tokens || "N/A"}</span>
-        <Button
-          className="text-xs hover:bg-gray-200 transition-colors duration-200"
-          onClick={onCopy}
-        >
-          {isCopied ? "Copied!" : "Copy"}
-        </Button>
+        <span className="text-xs text-muted-foreground">
+          Tokens: {tokens || 'N/A'}
+        </span>
+        <MessageActions
+          onCopy={onCopy}
+          onDelete={onDelete}
+          isCopied={isCopied}
+        />
       </div>
     </div>
   );

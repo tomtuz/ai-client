@@ -1,14 +1,14 @@
-import { DeepseekCoderOpenAIConfig } from "@/api/models/deepseek_coder_openai";
-import { ModelConfig } from "@/api/types";
-import { OpenRouterModelId } from "@/constants";
-import { responseData } from "@/tests/response";
-import { MessageContent } from "@/types/chat";
-import { logger } from "@/utils/logger";
+import { DeepseekCoderOpenAIConfig } from '@/api/providers/deepseek_coder_openai';
+import { OpenRouterModelId } from '@/constants';
+import { responseData } from '@/tests/response';
+import { MessageContent } from '@/types/chat';
+import { ProviderConfig } from '@/types/modelConfig';
+import { logger } from '@/utils/logger';
 
-let API_config: ModelConfig | null = null;
+let API_config: ProviderConfig | null = null;
 let OpenRouter_model: OpenRouterModelId | null = null;
 
-export const setApiConfig = (config: ModelConfig) => {
+export const setApiConfig = (config: ProviderConfig) => {
   logger.info(`setting config model: ${JSON.stringify(config, null, 2)}`);
   API_config = config;
 };
@@ -19,15 +19,17 @@ export const setOpenRouterModel = (model_id: OpenRouterModelId) => {
 
 export async function sendMessage(
   message: string,
-  isTest = true,
+  isTest = true
 ): Promise<MessageContent> {
   if (isTest) {
-    logger.info("returning TEST response.");
-    return DeepseekCoderOpenAIConfig.parseResponse(responseData());
+    logger.info('returning TEST response.');
+    return (DeepseekCoderOpenAIConfig as ProviderConfig).parseResponse(
+      responseData()
+    );
   }
 
   if (!API_config) {
-    throw new Error("API not configured");
+    throw new Error('API not configured');
   }
 
   const request = API_config.prepareRequest(message);

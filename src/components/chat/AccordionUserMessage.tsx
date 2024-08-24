@@ -1,11 +1,11 @@
-import { MessageContent } from "@/types/chat";
+import { MessageContent } from '@/types/chat';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@cn/ui";
-import { MessageHeader } from "./MessageHeader";
+} from '@cn/ui';
+import { MessageHeader } from './MessageHeader';
 
 interface AccordionUserMessageProps {
   message: MessageContent;
@@ -18,29 +18,31 @@ export function AccordionUserMessage({
   onCopy,
   isCopied,
 }: AccordionUserMessageProps) {
-  const codeContent =
-    message.content.length > 1
-      ? message.content.join("\n")
-      : message.content[0].text;
+  const codeContent = Array.isArray(message.content)
+    ? message.content.length > 1
+      ? message.content.join('\n')
+      : message.content[0].text
+    : typeof message.content === 'string'
+      ? message.content
+      : '';
 
   return (
-    <div className="bg-gray-50 rounded-lg overflow-hidden shadow-md">
+    <div className="overflow-hidden rounded-lg bg-gray-50 shadow-md">
       <MessageHeader
-        role={message.role || "user"}
+        role={message.role || 'user'}
         model={message.model}
         tokens={message.tokens?.input}
         onCopy={onCopy}
+        onDelete={() => {}} // Add a no-op function or implement delete functionality
         isCopied={isCopied}
       />
-      <Accordion
-        type="single"
-        collapsible
-      >
+
+      <Accordion type="single" collapsible>
         <AccordionItem value="content">
           <AccordionTrigger>{codeContent.slice(0, 100)}</AccordionTrigger>
           <AccordionContent>
             <div className="p-4">
-              <p className="text-gray-700 select-text">{codeContent}</p>
+              <p className="select-text text-gray-700">{codeContent}</p>
             </div>
           </AccordionContent>
         </AccordionItem>

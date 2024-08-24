@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -81,5 +83,12 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant('child-checked', "&:has(input[type='checkbox']:checked)") // has-child-checked
+      addVariant('group-has-checked', ":merge(.group):has(input[type='checkbox']:checked) &") // group-has-checked
+    }),
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+  ],
 };
