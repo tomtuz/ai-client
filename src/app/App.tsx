@@ -1,12 +1,21 @@
-import { ChatArea } from "@/components/ChatArea";
-import { ChatControls } from "@/components/devtools/ChatControls";
-import { useChat } from "@/context/ChatContext";
-import { MessageContent } from "@/types/chat";
+import { ChatArea } from '@/components/ChatArea';
+import { ChatControls } from '@/components/devtools/ChatControls';
+import { useChat } from '@/context/ChatContext';
+import { useTheme } from '@/hooks/useTheme';
+import { MessageContent } from '@/types/chat';
+import { cn } from '@/utils/tw_utils';
 
-function App() {
+export function App() {
+  const { theme } = useTheme();
   const { addTestMessage, sendUserMessage, processResponseMessage } = useChat();
+
   return (
-    <main className="flex-1 overflow-hidden">
+    <main
+      className={cn(
+        'flex flex-1 flex-col overflow-hidden bg-background text-foreground',
+        theme
+      )}
+    >
       <div className="flex h-full">
         <aside className="w-64 p-4">
           <ChatControls
@@ -22,5 +31,3 @@ function App() {
     </main>
   );
 }
-
-export default App;

@@ -13,23 +13,43 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LayoutLayoutImport } from './routes/layout/_layout'
+import { Route as ComponentsChatMessageImport } from './routes/components/ChatMessage'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
+const LayoutImport = createFileRoute('/layout')()
 const IndexLazyImport = createFileRoute('/')()
+const ComponentsIndexLazyImport = createFileRoute('/components/')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
+const LayoutRoute = LayoutImport.update({
+  path: '/layout',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const ComponentsIndexLazyRoute = ComponentsIndexLazyImport.update({
+  path: '/components/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/components/index.lazy').then((d) => d.Route),
+)
+
+const LayoutLayoutRoute = LayoutLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const ComponentsChatMessageRoute = ComponentsChatMessageImport.update({
+  path: '/components/ChatMessage',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -42,11 +62,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/components/ChatMessage': {
+      id: '/components/ChatMessage'
+      path: '/components/ChatMessage'
+      fullPath: '/components/ChatMessage'
+      preLoaderRoute: typeof ComponentsChatMessageImport
+      parentRoute: typeof rootRoute
+    }
+    '/layout': {
+      id: '/layout'
+      path: '/layout'
+      fullPath: '/layout'
+      preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/layout/_layout': {
+      id: '/layout/_layout'
+      path: '/layout'
+      fullPath: '/layout'
+      preLoaderRoute: typeof LayoutLayoutImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/components/': {
+      id: '/components/'
+      path: '/components'
+      fullPath: '/components'
+      preLoaderRoute: typeof ComponentsIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -56,7 +97,9 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
-  AboutLazyRoute,
+  ComponentsChatMessageRoute,
+  LayoutRoute: LayoutRoute.addChildren({}),
+  ComponentsIndexLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -68,14 +111,29 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/components/ChatMessage",
+        "/layout",
+        "/components/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/components/ChatMessage": {
+      "filePath": "components/ChatMessage.tsx"
+    },
+    "/layout": {
+      "filePath": "layout",
+      "children": [
+        "/layout/_layout"
+      ]
+    },
+    "/layout/_layout": {
+      "filePath": "layout/_layout.tsx",
+      "parent": "/layout"
+    },
+    "/components/": {
+      "filePath": "components/index.lazy.tsx"
     }
   }
 }
