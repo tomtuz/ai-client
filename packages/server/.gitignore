@@ -1,21 +1,25 @@
-# Dependencies
-node_modules
-
-# Build outputs
-dist
-build
-
-# Environment files
-.env
-.env.*
-
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
 
 # Editor directories and files
-.vite
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 docs
 docs/private*
@@ -28,5 +32,7 @@ old
 # no .db files and private scripts
 db/*.db
 db/private_*
+
+# in-dev vector db
 
 *.tsbuildinfo
