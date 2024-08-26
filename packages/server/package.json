@@ -1,0 +1,20 @@
+{
+  "name": "@ai-client/server",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts"
+  },
+  "dependencies": {
+    "chromadb": "^1.5.3",
+    "chromadb-default-embed": "^2.13.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.16.3",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "tsx": "^4.18.0",
+    "typescript": "^5.0.4"
+  },
+  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276"
+}

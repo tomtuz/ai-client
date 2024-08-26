@@ -30,6 +30,31 @@
           }
         }
       }
+    },
+    {
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["dev"],
+      "options": {
+        "cwd": "${workspaceFolder}/packages/client"
+      },
+      "label": "dev: client",
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["dev"],
+      "options": {
+        "cwd": "${workspaceFolder}/packages/server"
+      },
+      "label": "dev: server",
+      "problemMatcher": []
+    },
+    {
+      "label": "dev: all",
+      "dependsOn": ["dev: client", "dev: server"],
+      "problemMatcher": []
     }
   ]
 }
