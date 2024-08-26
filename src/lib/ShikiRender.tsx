@@ -9,8 +9,8 @@ const highlighter = await createHighlighter({
 });
 
 export function ShikiRender({ code, language }: ShikiCodeProps) {
-  console.log('code: ', code);
-  console.log('language: ', language);
+  // console.log('code: ', code);
+  // console.log('language: ', language);
 
   const [renderedCode, setRenderedCode] = useState<string>('');
 

@@ -34,6 +34,9 @@ export function Header() {
           >
             Models
           </Button>
+          <Button className="hover:underline">
+            <Link to="/rag">RAG</Link>
+          </Button>
           <Button className="hover:underline">Agent Builder</Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
