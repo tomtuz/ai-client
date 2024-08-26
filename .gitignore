@@ -34,6 +34,5 @@ db/*.db
 db/private_*
 
 # in-dev vector db
-chroma
 
 *.tsbuildinfo

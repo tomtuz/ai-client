@@ -18,7 +18,13 @@ export default defineConfig({
       "@components": fileURLToPath(
         new URL("./src/components", import.meta.url),
       ),
+      "source-map-js": "source-map"
     },
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001'
+    }
   },
   envPrefix: "EXPOSE_",
 });

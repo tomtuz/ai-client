@@ -20,6 +20,7 @@ import { Route as ComponentsChatMessageImport } from './routes/components/ChatMe
 
 const LayoutImport = createFileRoute('/layout')()
 const IndexLazyImport = createFileRoute('/')()
+const RagIndexLazyImport = createFileRoute('/rag/')()
 const ComponentsIndexLazyImport = createFileRoute('/components/')()
 
 // Create/Update Routes
@@ -33,6 +34,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const RagIndexLazyRoute = RagIndexLazyImport.update({
+  path: '/rag/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/rag/index.lazy').then((d) => d.Route))
 
 const ComponentsIndexLazyRoute = ComponentsIndexLazyImport.update({
   path: '/components/',
@@ -90,6 +96,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentsIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/rag/': {
+      id: '/rag/'
+      path: '/rag'
+      fullPath: '/rag'
+      preLoaderRoute: typeof RagIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -100,6 +113,7 @@ export const routeTree = rootRoute.addChildren({
   ComponentsChatMessageRoute,
   LayoutRoute: LayoutRoute.addChildren({}),
   ComponentsIndexLazyRoute,
+  RagIndexLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -113,7 +127,8 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/components/ChatMessage",
         "/layout",
-        "/components/"
+        "/components/",
+        "/rag/"
       ]
     },
     "/": {
@@ -134,6 +149,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/components/": {
       "filePath": "components/index.lazy.tsx"
+    },
+    "/rag/": {
+      "filePath": "rag/index.lazy.tsx"
     }
   }
 }

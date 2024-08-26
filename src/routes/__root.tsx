@@ -1,6 +1,6 @@
 import { Header } from '@components/Header';
 import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
-import React, { Suspense } from 'React';
+import React, { Suspense } from 'react';
 
 const TanStackRouterDevtools = import.meta.env.PROD
   ? () => null // Render nothing in production
