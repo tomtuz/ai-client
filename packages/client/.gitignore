@@ -32,6 +32,7 @@ old
 # no .db files and private scripts
 db/*.db
 db/private_*
+.cdb
 
 # in-dev vector db
 

@@ -7,8 +7,13 @@
     "dev:server": "pnpm --filter server dev",
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
-    "start": "pnpm --filter server start"
+    "start": "pnpm --filter server start",
+    "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint:fix",
+    "typecheck": "pnpm -r typecheck",
+    "typecheck:client": "pnpm --filter client typecheck",
+    "typecheck:server": "pnpm --filter server typecheck"
   },
   "devDependencies": {},
-  "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276"
+  "packageManager": "pnpm@9.8.0"
 }
