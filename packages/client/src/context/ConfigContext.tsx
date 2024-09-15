@@ -2,7 +2,8 @@ import { ProviderConfigs } from '@/api';
 import { ConfigurationManager } from '@/hooks/ConfigurationManager';
 import { ProviderConfig } from '@/types/modelConfig';
 import { loadConfigurations } from '@/utils/configLoader';
-import { Logger } from '@/utils/logger';
+import type { Logger } from '@/utils/logger';
+import { logger } from '@/utils/logger';
 import React, {
   createContext,
   useCallback,
@@ -77,21 +78,26 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
   // Load configurations from cache or fetch them
   const initializeConfigs = useCallback(async () => {
     try {
+      logger.debug('Initializing configurations');
       dispatch({ type: 'SET_LOADING', payload: true });
       dispatch({ type: 'SET_ERROR', payload: null });
 
       // Try to load from cache first
       const cachedConfigs = localStorage.getItem(CONFIG_CACHE_KEY);
-      let loadedConfigs: ProviderConfig[];
+      logger.debug('Loaded configuration: ', cachedConfigs);
 
+      let loadedConfigs: ProviderConfig[];
       if (cachedConfigs) {
+        logger.debug('Loading configurations from cache');
         loadedConfigs = JSON.parse(cachedConfigs);
       } else {
+        logger.debug('Fetching configurations from server');
         loadedConfigs = await loadConfigurations();
         // Cache the loaded configurations
         localStorage.setItem(CONFIG_CACHE_KEY, JSON.stringify(loadedConfigs));
       }
 
+      // we allow empty "cold starts" - empty configurations
       if (loadedConfigs.length > 0) {
         const manager = new ConfigurationManager(loadedConfigs);
         dispatch({ type: 'SET_CONFIG_MANAGER', payload: manager });
@@ -99,7 +105,11 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
         dispatch({ type: 'SET_ACTIVE_CONFIG', payload: active });
         localStorage.setItem('activeConfigId', active?.id || '');
       } else {
-        throw new Error('No configurations loaded');
+        logger.warn(
+          'Configuration is loaded, but is currently empty: ',
+          cachedConfigs
+        );
+        // throw new Error('No configurations loaded');
       }
     } catch (error) {
       console.error('Failed to load configurations:', error);
@@ -110,14 +120,20 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
-  }, []);
+  }, [logger]);
 
+  // main etrypoint - loading config
   useEffect(() => {
     initializeConfigs();
   }, [initializeConfigs]);
 
+  useEffect(() => {
+    logger.setLevel('Debug', process.env.NODE_ENV === 'development');
+  }, []);
+
   const handleSetActiveConfig = useCallback(
     (id: string) => {
+      logger.debug(`Setting active config to: ${id}`);
       const newActiveConfig = state.configManager.getConfigById(id);
       if (newActiveConfig) {
         state.configManager.setActiveConfig(id);
@@ -149,6 +165,7 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const updateConfigurations = useCallback(
     (newConfigs: ProviderConfig[]) => {
+      logger.debug('Updating configurations', newConfigs);
       dispatch({ type: 'UPDATE_CONFIGURATIONS', payload: newConfigs });
       const activeId = localStorage.getItem('activeConfigId');
       if (activeId) {
@@ -165,7 +182,7 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
       }
       localStorage.setItem(CONFIG_CACHE_KEY, JSON.stringify(newConfigs));
     },
-    [handleSetActiveConfig]
+    [handleSetActiveConfig, logger]
   );
 
   const contextValue = useMemo(
