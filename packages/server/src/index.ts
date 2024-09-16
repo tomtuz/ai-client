@@ -89,19 +89,6 @@ async function getIndexedFiles(): Promise<string[]> {
 	return results.ids as string[];
 }
 
-// app.get('/api/search', async (req, res) => {
-//   const { query } = req.query;
-//   if (typeof query !== 'string') {
-//     return res.status(400).json({ error: 'Invalid query parameter' });
-//   }
-//   try {
-//     const results = await searchQuery(query);
-//     res.json(results);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Search failed' });
-//   }
-// });
-
 app.get("/api/search", async (req, res) => {
 	const { query } = req.query;
 	if (typeof query !== "string") {
