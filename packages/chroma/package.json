@@ -1,0 +1,12 @@
+{
+  "name": "@ai-client/chroma",
+  "private": "true",
+  "scripts": {
+    "dev": "npm run start",
+    "chroma:check": "command -v chroma >/dev/null 2>&1 || { echo >&2 \"Chroma is not installed. Please install it using 'pip install chromadb'\"; exit 1; }",
+    "chroma:run": "chroma run --path ./db/",
+    "start": "npm run chroma:check && npm run chroma:run"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

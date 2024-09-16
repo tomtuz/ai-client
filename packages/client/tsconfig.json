@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
@@ -13,5 +12,7 @@
       "@twc/*": ["./src/components/tailwind/*"],
       "@components/*": ["./src/components/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src", "vite.config.ts"]
 }

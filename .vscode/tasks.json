@@ -52,8 +52,18 @@
       "problemMatcher": []
     },
     {
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["dev"],
+      "options": {
+        "cwd": "${workspaceFolder}/packages/chroma"
+      },
+      "label": "dev: chroma",
+      "problemMatcher": []
+    },
+    {
       "label": "dev: all",
-      "dependsOn": ["dev: client", "dev: server"],
+      "dependsOn": ["dev: client", "dev: server", "dev: chroma"],
       "problemMatcher": []
     }
   ]

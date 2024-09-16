@@ -1,11 +1,23 @@
 {
+  "references": [{ "path": "./packages/client" }, { "path": "./packages/server" }, { "path": "./packages/chroma" }],
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "strict": false,
+    "allowJs": true,
     "esModuleInterop": true,
-    "strict": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "types": ["react", "node"],
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "baseUrl": ".",
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@client/*": ["./packages/client/src/*"],
+      "@server/*": ["./packages/server/src/*"],
+      "@chroma/*": ["./packages/chroma/*"]
+    }
+  },
+  "exclude": ["**/node_modules"]
 }
