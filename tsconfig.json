@@ -9,13 +9,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@client/*": ["./packages/client/src/*"],
-      "@server/*": ["./packages/server/src/*"],
-      "@chroma/*": ["./packages/chroma/*"]
-    }
+    "composite": true,
+    "declaration": true,
+    "sourceMap": true,
+    "baseUrl": "."
   },
-  "references": [{ "path": "./packages/client" }, { "path": "./packages/server" }, { "path": "./packages/chroma" }],
   "exclude": ["**/node_modules", "**/dist"]
 }

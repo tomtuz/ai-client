@@ -1,18 +1,20 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@cn/*": ["./src/components/cn/*"],
-      "@twc/*": ["./src/components/tailwind/*"],
-      "@components/*": ["./src/components/*"]
-    }
+      "@/*": ["./*"],
+      "@cn/*": ["./components/cn/*"],
+      "@twc/*": ["./components/tailwind/*"],
+      "@components/*": ["./components/*"]
+    },
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true
   },
-  "include": ["src/**/*", "vite.config.ts"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
