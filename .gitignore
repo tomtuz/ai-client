@@ -29,5 +29,7 @@ old
 db/*.db
 db/private_*
 *.sqlite*
+.cdb
 
 *.tsbuildinfo
+TODO.md
