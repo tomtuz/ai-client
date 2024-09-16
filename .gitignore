@@ -28,5 +28,6 @@ old
 # no .db files and private scripts
 db/*.db
 db/private_*
+*.sqlite*
 
 *.tsbuildinfo
