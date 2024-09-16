@@ -8,6 +8,8 @@ importers:
 
   .: {}
 
+  packages/chroma: {}
+
   packages/client:
     dependencies:
       '@radix-ui/react-accordion':

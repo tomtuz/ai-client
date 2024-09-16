@@ -18,7 +18,7 @@ export default defineConfig({
       "@components": fileURLToPath(
         new URL("./src/components", import.meta.url),
       ),
-      "source-map-js": "source-map"
+      // "source-map-js": "source-map"
     },
   },
   server: {
