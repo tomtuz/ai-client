@@ -2,10 +2,15 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Vite Server (Run)",
+      // Runs Vite server and problem matches output
+      "label": "debug:client",
       "type": "shell",
-      "command": "pnpm run dev",
+      "command": "pnpm",
+      "args": ["run", "dev"],
       "isBackground": true,
+      "options": {
+        "cwd": "${workspaceFolder}/packages/client"
+      },
       "problemMatcher": {
         "owner": "vite",
         "severity": "error",
@@ -31,39 +36,66 @@
         }
       }
     },
+
     {
+      "label": "debug:server",
       "type": "shell",
       "command": "pnpm",
-      "args": ["dev"],
-      "options": {
-        "cwd": "${workspaceFolder}/packages/client"
-      },
-      "label": "dev: client",
-      "problemMatcher": []
-    },
-    {
-      "type": "shell",
-      "command": "pnpm",
-      "args": ["dev"],
+      "args": ["run", "dev"],
       "options": {
         "cwd": "${workspaceFolder}/packages/server"
       },
-      "label": "dev: server",
-      "problemMatcher": []
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": ".",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "^.*$",
+            "endsPattern": "^Server running on port \\d+$"
+          }
+        }
+      ]
     },
+
     {
+      "label": "debug:chroma",
       "type": "shell",
       "command": "pnpm",
-      "args": ["dev"],
+      "args": ["run", "dev"],
       "options": {
         "cwd": "${workspaceFolder}/packages/chroma"
       },
-      "label": "dev: chroma",
-      "problemMatcher": []
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": ".",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "^Running Chroma$",
+            "endsPattern": "^Getting started guide: .*$"
+          }
+        }
+      ]
     },
+
     {
-      "label": "dev: all",
-      "dependsOn": ["dev: client", "dev: server", "dev: chroma"],
+      "label": "start-all-debug",
+      "dependsOn": ["debug:server", "debug:chroma", "debug:client"],
       "problemMatcher": []
     }
   ]

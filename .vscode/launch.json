@@ -2,54 +2,54 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Chrome (Run)",
+      "name": "Debug Client",
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/src",
+      "webRoot": "${workspaceFolder}/packages/client",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
-        "webpack:///src/*": "${webRoot}/*"
+        "webpack:///src/*": "${webRoot}/src/*"
       },
-      "presentation": {
-        "hidden": true,
-        "group": "RunAll",
-        "order": 2
-      },
-      "preLaunchTask": "Vite Server (Run)"
-    },
-
-    {
-      "name": "Express (Run)",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "pnpm",
-      "args": ["pnpm", "run", "dev:server"],
-      "smartStep": true,
-      "trace": true,
       "presentation": {
         "hidden": false,
         "group": "RunAll",
         "order": 1
-      },
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": ""
+      }
     },
 
     {
-      "name": "Chroma (Run)",
+      "name": "Debug Express",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "pnpm",
-      "args": ["pnpm", "run", "dev:chroma"],
+      "args": ["run", "dev"],
       "smartStep": true,
       "trace": true,
+      "cwd": "${workspaceFolder}/packages/server",
+      "console": "integratedTerminal",
+      "presentation": {
+        "hidden": false,
+        "group": "RunAll",
+        "order": 2
+      }
+    },
+
+    {
+      "name": "Debug Chroma",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "args": ["run", "dev"],
+      "smartStep": true,
+      "trace": true,
+      "cwd": "${workspaceFolder}/packages/chroma",
+      "console": "integratedTerminal",
       "presentation": {
         "hidden": false,
         "group": "RunAll",
         "order": 3
-      },
-      "cwd": "${workspaceFolder}"
+      }
     },
 
     {
@@ -113,12 +113,15 @@
       "name": "Server/Client/VectorDB",
       "presentation": {
         "hidden": false,
-        "group": "ClientApp",
+        "group": "RunAll",
         "order": 0
       },
       "stopAll": true,
-      "configurations": ["Express (Run)", "Chrome (Run)", "Chroma (Run)"],
-      "preLaunchTask": "Vite Server (Run)"
+      // client - needs debugger attached
+      // server - (optional) can have a debugger, but then remove the task
+      // chroma - don't need debugger / not a node process
+      "configurations": ["Debug Chroma"],
+      "preLaunchTask": "start-all-debug"
     }
   ]
 }

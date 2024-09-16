@@ -5,6 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
 	build: {
+		sourcemap: true,
 		target: "esnext",
 	},
 	plugins: [viteReactSWC(), TanStackRouterVite()],
@@ -18,11 +19,11 @@ export default defineConfig({
 			"@components": fileURLToPath(
 				new URL("./src/components", import.meta.url),
 			),
-			// "source-map-js": "source-map",
+			"source-map-js": "source-map",
 		},
 	},
 	server: {
-		port: 8080,
+		// port: 8080,
     proxy: {
       '/api': 'http://localhost:3001',
     }

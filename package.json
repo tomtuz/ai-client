@@ -16,5 +16,5 @@
     "typecheck:server": "pnpm --filter server typecheck"
   },
   "devDependencies": {},
-  "packageManager": "pnpm@9.8.0"
+  "packageManager": "pnpm@9.10.0"
 }
