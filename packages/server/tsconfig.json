@@ -3,8 +3,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": ".",
-    "types": ["node"]
+    "types": ["node"],
+    "noEmit": false,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES2020"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "test_data"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test_data"]
 }
