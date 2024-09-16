@@ -1,10 +1,11 @@
 {
-  "name": "your-project",
+  "name": "ai-client",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev:client": "pnpm --filter client dev",
     "dev:server": "pnpm --filter server dev",
+    "dev:chroma": "pnpm --filter chroma dev",
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "start": "pnpm --filter server start",

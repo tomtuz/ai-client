@@ -1,7 +1,7 @@
-import { openRouterModels } from '@/constants/index.ts';
-import { useDropdown } from '@/hooks/useDropdown.ts';
+import { openRouterModels } from '@/constants/index';
+import { useDropdown } from '@/hooks/useDropdown';
 import React from 'react';
-import { GenericDropdown } from './GenericDropdown.tsx';
+import { GenericDropdown } from './GenericDropdown';
 
 interface DropdownState {
   items: string[];
