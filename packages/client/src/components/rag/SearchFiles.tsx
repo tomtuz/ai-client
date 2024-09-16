@@ -125,15 +125,18 @@ export function SearchFiles({ title }: Readonly<SearchFilesProps>) {
       <div className="rounded bg-secondary p-2">
         <p>Embedding Model: {searchInfo.model}</p>
         <p>Search Duration: {searchInfo.duration}</p>
-        <div
-          className={`ml-2 inline-block h-3 w-3 rounded-full ${
-            isSearching
-              ? 'bg-yellow-500'
-              : isConnected
-                ? 'bg-green-500'
-                : 'bg-red-500'
-          }`}
-        ></div>
+        <div>
+          <span>Chroma DB:</span>
+          <span
+            className={`ml-2 inline-block h-3 w-3 rounded-full ${
+              isSearching
+                ? 'bg-yellow-500'
+                : isConnected
+                  ? 'bg-green-500'
+                  : 'bg-red-500'
+            }`}
+          ></span>
+        </div>
       </div>
 
       <div

@@ -2,11 +2,19 @@
   "name": "@ai-client/chroma",
   "private": "true",
   "scripts": {
-    "dev": "npm run start",
-    "chroma:check": "command -v chroma >/dev/null 2>&1 || { echo >&2 \"Chroma is not installed. Please install it using 'pip install chromadb'\"; exit 1; }",
+    "dev": "pnpm run start",
+    "chroma:check": "if ! which chroma > /dev/null; then echo >&2 \"Chroma is not installed. Please install it using 'pip install chromadb'\"; exit 1; fi",
     "chroma:run": "chroma run --path ./db/",
-    "start": "npm run chroma:check && npm run chroma:run"
+    "start": "pnpm run chroma:check && pnpm run chroma:run"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "chromadb": "^1.5.3",
+    "chromadb-default-embed": "^2.13.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "tsx": "^4.18.0",
+    "typescript": "^5.0.4"
+  },
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
 }

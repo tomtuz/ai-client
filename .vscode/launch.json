@@ -13,11 +13,45 @@
       },
       "presentation": {
         "hidden": true,
-        "group": "ClientApp",
-        "order": 1
+        "group": "RunAll",
+        "order": 2
       },
       "preLaunchTask": "Vite Server (Run)"
     },
+
+    {
+      "name": "Express (Run)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "args": ["pnpm", "run", "dev:server"],
+      "smartStep": true,
+      "trace": true,
+      "presentation": {
+        "hidden": false,
+        "group": "RunAll",
+        "order": 1
+      },
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": ""
+    },
+
+    {
+      "name": "Chroma (Run)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "args": ["pnpm", "run", "dev:chroma"],
+      "smartStep": true,
+      "trace": true,
+      "presentation": {
+        "hidden": false,
+        "group": "RunAll",
+        "order": 3
+      },
+      "cwd": "${workspaceFolder}"
+    },
+
     {
       "name": "CustomCommand",
       "type": "node",
@@ -34,6 +68,7 @@
       },
       "console": "integratedTerminal"
     },
+
     {
       "name": "Eslint (Run)",
       "type": "node",
@@ -42,9 +77,10 @@
       "args": ["pnpm", "tsx", "scripts/eslint_debug.mjs"],
       "smartStep": true,
       "trace": true,
-      "cwd": "${workspaceFolder}",
-    },
+      "cwd": "${workspaceFolder}"
+    }
   ],
+
   "inputs": [
     {
       "id": "userInput",
@@ -71,16 +107,17 @@
       ]
     }
   ],
+
   "compounds": [
     {
-      "name": "AI_ClientApp",
+      "name": "Server/Client/VectorDB",
       "presentation": {
         "hidden": false,
         "group": "ClientApp",
         "order": 0
       },
       "stopAll": true,
-      "configurations": ["Chrome (Run)"],
+      "configurations": ["Express (Run)", "Chrome (Run)", "Chroma (Run)"],
       "preLaunchTask": "Vite Server (Run)"
     }
   ]

@@ -1,80 +1,60 @@
-# Your Project Name
-
-This is a monorepo project containing a client and a server package.
-
-## Project Structure
-
-```
-.
-├── packages/
-│   ├── client/      # React client application
-│   └── server/      # Express server application
-├── package.json
-├── pnpm-workspace.yaml
-├── tsconfig.json
-└── eslint.config.js
-```
-
 ## Setup
 
 1. Clone the repository:
 
-   ```
-   git clone <repository-url>
-   cd <project-directory>
-   ```
+```
+git clone <repository-url>
+cd <project-directory>
+```
 
 2. Install dependencies:
-   ```
-   pnpm install
-   ```
+
+```
+pnpm install
+```
 
 ## Development
 
 To run both client and server in development mode:
 
-```
+```sh
 pnpm dev
+
+# or individually
+pnpm run dev:client
+pnpm run dev:server
+pnpm run dev:chroma
 ```
 
-To run only the client:
+## Directory Structure
 
 ```
-pnpm dev:client
+├── packages/
+│   ├── chroma/      # Chroma vector DB
+│   ├── client/      # React client application
+│   └── server/      # Express server application
+├── package.json
+├── pnpm-workspace.yaml
+└── tsconfig.json
 ```
 
-To run only the server:
+## Project Architecture
 
 ```
-pnpm dev:server
-```
-
-## Building
-
-To build all packages:
-
-```
-pnpm build
-```
-
-## Linting
-
-To run linting on all packages:
-
-```
-pnpm lint
-```
-
-To automatically fix linting issues:
-
-```
-pnpm lint:fix
-```
-
-## Production
-
-To start the server in production mode:
-
-```
-pnpm start
+          client
+          (React)
+             |
+             |  [HTTP requests]
+             v
+  -------------------------
+  |        Server         |
+  |   (Express or .NET)   |
+  -------------------------
+             |
+             |  [API calls]
+             v
+       --------------
+       | Vector DB  |
+       |  (chroma)  |
+       --------------
 ```
