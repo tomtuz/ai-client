@@ -1,4 +1,4 @@
-import { SearchFiles } from '@/components/rag/SearchFiles';
+import { SearchFiles } from '@/features/rag_search/components/SearchFiles';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
 export const Route = createLazyFileRoute('/rag/')({

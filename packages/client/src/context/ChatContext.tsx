@@ -1,4 +1,4 @@
-import { useChatHook } from '@/hooks/useChatHook';
+import { useChatHook } from '@/features/chat/hooks/useChatHook';
 import { MessageContent } from '@/types/chat';
 import { ReactNode, createContext, useContext, useMemo } from 'react';
 
