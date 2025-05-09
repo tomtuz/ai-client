@@ -66,6 +66,7 @@ export function UserMessage({ message }: MessageData) {
             id={`accorion-button-${id}`}
             className="sr-only"
             aria-hidden="true"
+            aria-modal
           />
           {/* Label Trigger */}
           <label

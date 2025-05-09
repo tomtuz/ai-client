@@ -3,6 +3,7 @@ import { logger } from '@/utils/logger';
 import { Link } from '@tanstack/react-router';
 import { ChevronDown } from 'lucide-react';
 import React from 'react';
+import { ModelDialog } from '../features/configuration_editor/ModelDialog';
 import { DarkModeToggle } from './DarkModeToggle';
 import { NavMenu } from './NavMenu';
 import {
@@ -12,7 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './cn/ui';
-import { ModelDialog } from './model_configuration/ModelDialog';
 
 export function Header() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -37,7 +37,9 @@ export function Header() {
           <Button className="hover:underline">
             <Link to="/rag">RAG</Link>
           </Button>
-          <Button className="hover:underline">Agent Builder</Button>
+          <Button className="hover:underline">
+            <Link to="/builder">Agent Builder</Link>
+          </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="hover:underline">

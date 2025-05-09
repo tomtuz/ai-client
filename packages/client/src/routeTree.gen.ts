@@ -22,6 +22,7 @@ const LayoutImport = createFileRoute('/layout')()
 const IndexLazyImport = createFileRoute('/')()
 const RagIndexLazyImport = createFileRoute('/rag/')()
 const ComponentsIndexLazyImport = createFileRoute('/components/')()
+const BuilderIndexLazyImport = createFileRoute('/builder/')()
 
 // Create/Update Routes
 
@@ -46,6 +47,11 @@ const ComponentsIndexLazyRoute = ComponentsIndexLazyImport.update({
 } as any).lazy(() =>
   import('./routes/components/index.lazy').then((d) => d.Route),
 )
+
+const BuilderIndexLazyRoute = BuilderIndexLazyImport.update({
+  path: '/builder/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/builder/index.lazy').then((d) => d.Route))
 
 const LayoutLayoutRoute = LayoutLayoutImport.update({
   id: '/_layout',
@@ -89,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLayoutImport
       parentRoute: typeof LayoutRoute
     }
+    '/builder/': {
+      id: '/builder/'
+      path: '/builder'
+      fullPath: '/builder'
+      preLoaderRoute: typeof BuilderIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/components/': {
       id: '/components/'
       path: '/components'
@@ -112,6 +125,7 @@ export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   ComponentsChatMessageRoute,
   LayoutRoute: LayoutRoute.addChildren({}),
+  BuilderIndexLazyRoute,
   ComponentsIndexLazyRoute,
   RagIndexLazyRoute,
 })
@@ -127,6 +141,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/components/ChatMessage",
         "/layout",
+        "/builder/",
         "/components/",
         "/rag/"
       ]
@@ -146,6 +161,9 @@ export const routeTree = rootRoute.addChildren({
     "/layout/_layout": {
       "filePath": "layout/_layout.tsx",
       "parent": "/layout"
+    },
+    "/builder/": {
+      "filePath": "builder/index.lazy.tsx"
     },
     "/components/": {
       "filePath": "components/index.lazy.tsx"

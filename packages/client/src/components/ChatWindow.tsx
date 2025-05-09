@@ -1,6 +1,6 @@
 import { useConfiguration } from '@/context/ConfigContext';
+import { useChatInput } from '@/features/chat/hooks/useChatInput';
 import { useEnterSubmit } from '@/hooks/enterSubmit';
-import { useChatInput } from '@/hooks/useChatInput';
 import { Tooltip, TooltipProvider } from '@cn/ui';
 import { TooltipContent, TooltipTrigger } from '@radix-ui/react-tooltip';
 import { CirclePlus, CornerDownLeft, Loader2 } from 'lucide-react';
